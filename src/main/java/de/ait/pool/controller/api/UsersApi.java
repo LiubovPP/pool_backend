@@ -27,7 +27,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/users")
 public interface UsersApi {
 
-       @Operation(summary = "Регистрация пользователя", description = "Доступно всем. По умолчанию роль - USER")
+    @Operation(summary = "Регистрация пользователя", description = "Доступно всем. По умолчанию роль - USER")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Пользователь зарегистрирован",
@@ -42,10 +42,11 @@ public interface UsersApi {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = StandardResponseDto.class))),
     })
-       // регистрация пользователя
+    // регистрация пользователя
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-       UserDto register(@RequestBody @Valid NewUserDto newUser);
+    UserDto register(@RequestBody @Valid NewUserDto newUser);
+
     // получение текущего (своего) профиля
     @GetMapping("/profile")
     UserDto getProfile(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
