@@ -17,7 +17,6 @@ public class UsersController implements UsersApi {
 
     private final UsersService usersService;
 
-
     @Override
     public UserDto register(NewUserDto newUser) {
         return usersService.register(newUser);
@@ -28,6 +27,4 @@ public class UsersController implements UsersApi {
         Long currentUserId = user.getId();
         return usersService.getUserById(currentUserId);
     }
-
-
 }
