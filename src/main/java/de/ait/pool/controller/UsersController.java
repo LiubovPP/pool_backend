@@ -2,8 +2,8 @@ package de.ait.pool.controller;
 
 
 import de.ait.pool.controller.api.UsersApi;
-import de.ait.pool.dto.NewUserDto;
-import de.ait.pool.dto.UserDto;
+import de.ait.pool.dto.userDto.NewUserDto;
+import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.security.details.AuthenticatedUser;
 import de.ait.pool.service.UsersService;
 import lombok.RequiredArgsConstructor;

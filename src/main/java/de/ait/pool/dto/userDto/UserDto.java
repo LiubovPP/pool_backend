@@ -1,4 +1,4 @@
-package de.ait.pool.dto;
+package de.ait.pool.dto.userDto;
 
 import de.ait.pool.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data

@@ -1,19 +1,17 @@
 package de.ait.pool.service;
 
 
-import de.ait.pool.dto.NewUserDto;
-import de.ait.pool.dto.UserDto;
+import de.ait.pool.dto.userDto.NewUserDto;
+import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.User;
 import de.ait.pool.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import static de.ait.pool.dto.UserDto.from;
+import static de.ait.pool.dto.userDto.UserDto.from;
 
 
 @RequiredArgsConstructor
