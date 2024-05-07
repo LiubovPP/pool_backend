@@ -1,7 +1,7 @@
 package de.ait.pool.exceptions;
 
 
-import de.ait.pool.dto.StandardResponseDto;
+import de.ait.pool.dto.userDto.StandardResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

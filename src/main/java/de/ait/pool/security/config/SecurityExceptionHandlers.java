@@ -1,7 +1,7 @@
 package de.ait.pool.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ait.pool.dto.StandardResponseDto;
+import de.ait.pool.dto.userDto.StandardResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package de.ait.pool.dto;
+package de.ait.pool.dto.userDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
