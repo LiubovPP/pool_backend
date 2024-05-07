@@ -21,12 +21,12 @@ import java.util.Optional;
 @RequestMapping("/api/products")
 public interface ProductApi {
 
-        @Operation(summary = "Список продуктов", description = "Доступно всем. По умолчанию роль - USER")
+        @Operation(summary = "Продукт по id ", description = "Доступно администратору. По умолчанию роль - ADMIN")
 
         @GetMapping("/{id}")
         public Optional<Product> getById(@RequestParam Long id);
 
-
+        @Operation(summary = "Список продуктов", description = "Доступно всем. По умолчанию роль - USER")
         @GetMapping("/all")
         public List<Product> getProducts();
 
