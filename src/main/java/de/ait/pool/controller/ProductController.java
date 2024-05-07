@@ -19,11 +19,13 @@ import java.util.Optional;
 public class ProductController implements ProductApi {
     private final ProductService productService;
 
+    @Override
     @GetMapping("/{id}")
     public Optional<Product> getById(@RequestParam Long id) {
         return productService.findById((long) id);
     }
 
+    @Override
     @GetMapping("/all")
     public List<Product> getProducts() {
         return productService.findAll();
