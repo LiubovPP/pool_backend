@@ -1,6 +1,6 @@
 package de.ait.pool.config;
 
-import de.ait.pool.dto.userDto.StandardResponseDto;
+import de.ait.pool.dto.StandardResponseDto;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.core.converter.ResolvedSchema;

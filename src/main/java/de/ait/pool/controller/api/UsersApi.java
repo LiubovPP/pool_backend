@@ -1,7 +1,7 @@
 package de.ait.pool.controller.api;
 
 import de.ait.pool.dto.userDto.NewUserDto;
-import de.ait.pool.dto.userDto.StandardResponseDto;
+import de.ait.pool.dto.StandardResponseDto;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.security.details.AuthenticatedUser;
 import de.ait.pool.validation.dto.ValidationErrorsDto;

@@ -1,4 +1,4 @@
-package de.ait.pool.dto.userDto;
+package de.ait.pool.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

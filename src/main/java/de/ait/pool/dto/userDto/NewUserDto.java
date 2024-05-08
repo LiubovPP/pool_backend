@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,16 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewUserDto {
+
+    @NonNull
+    @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ\\\\-]+$", message = "Имя должно содержать только буквы и тире")
+    @Schema(description = "Имя пользователя", example = "Kirill")
+    private String firstName;
+
+    @NonNull
+    @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ\\\\-]+$", message = "Имя должно содержать только буквы и тире")
+    @Schema(description = "Фамилия пользователя", example = "Topolcean")
+    private String lastName;
 
     @Email
     @NotNull

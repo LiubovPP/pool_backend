@@ -31,6 +31,8 @@ public class UsersService {
         }
 
         User user = User.builder()
+                .firstName(newUser.getFirstName())
+                .lastName(newUser.getLastName())
                 .email(newUser.getEmail())
                 .hashPassword(passwordEncoder.encode(newUser.getPassword()))
                 .role(User.Role.USER)
