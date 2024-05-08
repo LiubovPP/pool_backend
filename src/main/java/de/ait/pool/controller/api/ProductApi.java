@@ -23,7 +23,7 @@ public interface ProductApi {
         Optional<ProductDto> getById(@PathVariable Long id); // Use PathVariable for id
 
         @Operation(summary = "Список продуктов", description = "Доступно всем. По умолчанию роль - USER")
-        @GetMapping("/all")
+        @GetMapping
         List<ProductDto> getProducts();
 
         @Operation(summary = "Создать продукт", description = "Доступно администратору. По умолчанию роль - ADMIN")

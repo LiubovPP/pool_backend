@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/swagger-ui/**").permitAll() // разрешаем всем доступ к Swagger
                 .antMatchers(HttpMethod.POST, "/api/users/register/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/products").permitAll()
                 .antMatchers("/api/**").authenticated(); // разрешаем доступ для всех остальных endpoints только аутентифицированным пользователям
 
         httpSecurity

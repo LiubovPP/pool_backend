@@ -2,9 +2,10 @@ package de.ait.pool.service;
 
 import de.ait.pool.dto.productDto.NewProductDto;
 import de.ait.pool.dto.productDto.ProductDto;
-import de.ait.pool.exceptions.ProductNotFoundException;
+import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.Product;
 import de.ait.pool.repository.ProductRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
@@ -26,17 +27,23 @@ public class ProductService {
     }
 
     public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            throw new RestException(HttpStatus.NOT_FOUND,
+                    "Product with id<" + id + "> is not found");
+        }
+        return optionalProduct;
     }
 
     public ProductDto createProduct(NewProductDto newProductDto) {
 
         // Basic validation (can be improved)
         if (newProductDto.getTitle() == null || newProductDto.getTitle().isEmpty()) {
-            throw new IllegalArgumentException("Title cannot be empty");
+            throw new RestException(HttpStatus.BAD_REQUEST,"Title cannot be empty");
         }
         if (newProductDto.getPrice() == null || newProductDto.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Price must be positive");
+            throw new RestException(HttpStatus.BAD_REQUEST,"Price must be positive");
         }
 
         // Create new Product from NewProductDto
@@ -62,7 +69,8 @@ public class ProductService {
 
         // Find product by id
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> new RestException(HttpStatus.BAD_REQUEST,
+                        "Product with id<" + id + "> is not found"));
 
         // Update product fields
         product.setTitle(newProductDto.getTitle());
@@ -76,7 +84,8 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new ProductNotFoundException("Product not found");
+            throw new RestException(HttpStatus.BAD_REQUEST,
+                    "Product with id<" + id + "> is not found");
         }
         productRepository.deleteById(id);
     }
