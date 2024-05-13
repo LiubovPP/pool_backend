@@ -5,6 +5,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -22,7 +23,7 @@ public class User {
     }
 
     public enum State {
-        NOT_CONFIRMED, CONFIRMED
+        NOT_CONFIRMED, CONFIRMED, DELETED, BANNED
     }
 
     // TODO проверить колонки
@@ -55,8 +56,26 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    //TODO заказы Orders
+    // Один пользователь может иметь только одну корзину
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private Cart cart;
 
+
+
+    //TODO заказы Orders
+    // Многие пользователи могут иметь множество продуктов
+    @ManyToMany
+    @JoinTable(
+            name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products;
+
+/*
+    @OneToMany(mappedBy = "user")
+    private Set<ConfirmationCode> codes;
+*/
 
     @Override
     public final boolean equals(Object o) {
