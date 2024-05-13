@@ -57,7 +57,7 @@ public class User {
     private State state;
 
     // Один пользователь может иметь только одну корзину
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
 
