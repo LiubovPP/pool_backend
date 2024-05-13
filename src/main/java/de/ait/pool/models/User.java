@@ -5,7 +5,6 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.util.Objects;
-//import java.util.Set;
 
 
 @Getter
@@ -45,6 +44,7 @@ public class User {
     @Column
     private String hashPassword;
 
+    @Column
     private String phoneNumber;
 
     @Column
@@ -55,7 +55,21 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
+    // Один пользователь может иметь только одну корзину
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private Cart cart;
+
+
+
     //TODO заказы Orders
+    // Многие пользователи могут иметь множество продуктов
+    @ManyToMany
+    @JoinTable(
+            name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products;
 
 /*
     @OneToMany(mappedBy = "user")
