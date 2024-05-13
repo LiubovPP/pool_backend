@@ -6,6 +6,18 @@ spring:
     password: ${DB_PASSWORD}
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+#  mail:
+#    username: mail- реальный
+    #    password: qbfkxsltsphzptfb
+    #    host: smtp.gmail.com
+    #    port: 587
+      #    properties:
+      #     mail:
+      #       debug: true
+      #       smtp:
+      #        auth: true
+      #        starttls:
+    #         enable: true
 
   jpa:
     hibernate:
@@ -20,3 +32,5 @@ spring:
        org:
          springframework:
           security: DEBUG
+#base:
+#  url: https://${NGROK_ID}.ngrok-free.app
