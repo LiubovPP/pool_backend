@@ -5,6 +5,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.util.Objects;
+//import java.util.Set;
 
 
 @Getter
@@ -22,7 +23,7 @@ public class User {
     }
 
     public enum State {
-        NOT_CONFIRMED, CONFIRMED
+        NOT_CONFIRMED, CONFIRMED, DELETED, BANNED
     }
 
     // TODO проверить колонки
@@ -44,7 +45,6 @@ public class User {
     @Column
     private String hashPassword;
 
-    @Column
     private String phoneNumber;
 
     @Column
@@ -57,6 +57,10 @@ public class User {
 
     //TODO заказы Orders
 
+/*
+    @OneToMany(mappedBy = "user")
+    private Set<ConfirmationCode> codes;
+*/
 
     @Override
     public final boolean equals(Object o) {

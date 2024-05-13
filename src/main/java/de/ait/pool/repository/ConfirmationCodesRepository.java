@@ -1,7 +1,13 @@
+/*
 package de.ait.pool.repository;
 
 import de.ait.pool.models.ConfirmationCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ConfirmationCodeRepository extends JpaRepository<ConfirmationCode,Long> {
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+public interface ConfirmationCodesRepository extends JpaRepository<ConfirmationCode,Long> {
+    Optional<ConfirmationCode> findByCodeAndExpiredDateTimeAfter(String code, LocalDateTime now);
 }
+*/
