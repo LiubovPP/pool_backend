@@ -7,34 +7,34 @@ import javax.persistence.*;
 import java.util.Objects;
 
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "users")
-public class User {
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @Entity
+    @Table(name = "users")
+    public class User {
 
-    public enum Role {
-        ADMIN, USER
-    }
+        public enum Role {
+            ADMIN, USER
+        }
 
-    public enum State {
-        NOT_CONFIRMED, CONFIRMED
-    }
+        public enum State {
+            NOT_CONFIRMED, CONFIRMED
+        }
 
-    // TODO проверить колонки
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (nullable = false)
-    private Long id;
+        // TODO проверить колонки
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column (nullable = false)
+        private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String firstName;
 
-    @Column
+    @Column(nullable = false)
     private String lastName;
 
     @Column(nullable = false, unique = true)
@@ -44,7 +44,7 @@ public class User {
     @Column
     private String hashPassword;
 
-
+    @Column(nullable = false)
     private String phoneNumber;
 
     @Column

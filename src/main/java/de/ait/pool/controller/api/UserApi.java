@@ -2,6 +2,7 @@ package de.ait.pool.controller.api;
 
 import de.ait.pool.dto.userDto.NewUserDto;
 import de.ait.pool.dto.StandardResponseDto;
+import de.ait.pool.dto.userDto.UpdateUserDto;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.security.details.AuthenticatedUser;
 import de.ait.pool.validation.dto.ValidationErrorsDto;
@@ -19,13 +20,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Tags(
         @Tag(name = "Users")
 )
 @RequestMapping("/api/users")
-public interface UsersApi {
+public interface UserApi {
 
     @Operation(summary = "Регистрация пользователя", description = "Доступно всем. По умолчанию роль - USER")
     @ApiResponses(value = {
@@ -49,7 +51,19 @@ public interface UsersApi {
 
     // получение текущего (своего) профиля
     @GetMapping("/profile")
+    @Operation(summary = "профиль пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
     UserDto getProfile(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
+   void deleteUser (@PathVariable Long id);
 
-}
+    @Operation(summary = "Обновить пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
+    @PutMapping("/{id}")
+    UserDto updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserDto updatedUser);
+
+    @GetMapping("/users")
+    @Operation(summary = "Список пользователей", description = "Доступно администратору. По умолчанию роль - ADMIN")
+   List<UserDto> getAllUsers();
+    }
+

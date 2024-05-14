@@ -20,12 +20,12 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class NewUserDto {
 
-    @NonNull
+    @NotNull
     @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ\\\\-]+$", message = "Имя должно содержать только буквы и тире")
     @Schema(description = "Имя пользователя", example = "Kirill")
     private String firstName;
 
-    @NonNull
+    @NotNull
     @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ\\\\-]+$", message = "Имя должно содержать только буквы и тире")
     @Schema(description = "Фамилия пользователя", example = "Topolcean")
     private String lastName;
@@ -39,4 +39,9 @@ public class NewUserDto {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$")
     @Schema(description = "Пароль пользователя", example = "Qwerty007!")
     private String password;
+
+    @NotNull
+    @Pattern(regexp = "[^a-zA-Z]{1,30}")
+    @Schema(description = "Номер телефона пользователя", example = "+7 952 889 01 88")
+    private String phoneNumber;
 }

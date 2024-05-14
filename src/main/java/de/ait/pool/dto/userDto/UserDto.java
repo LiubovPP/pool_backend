@@ -33,6 +33,9 @@ public class UserDto {
     @Schema(description = "Роль пользователя", example = "USER")
     private String role;
 
+    @Schema(description = "Номер телефона пользователя", example = "+7 952 889 01 88")
+    private String phoneNumber;
+
     public static UserDto from(User user) {
         return UserDto.builder()
                 .id(user.getId())
@@ -40,6 +43,7 @@ public class UserDto {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .role(user.getRole().toString())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
 
@@ -48,4 +52,14 @@ public class UserDto {
                 .map(UserDto::from)
                 .collect(Collectors.toList());
     }
+    public static UserDto from(UpdateUserDto user, Long id) {
+        return UserDto.builder()
+                .id(id)
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .build();
+    }
+
 }
