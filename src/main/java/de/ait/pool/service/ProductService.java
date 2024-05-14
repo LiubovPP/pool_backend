@@ -40,10 +40,10 @@ public class ProductService {
 
         // Basic validation (can be improved)
         if (newProductDto.getTitle() == null || newProductDto.getTitle().isEmpty()) {
-            throw new RestException(HttpStatus.BAD_REQUEST,"Title cannot be empty");
+            throw new RestException(HttpStatus.BAD_REQUEST, "Title cannot be empty");
         }
         if (newProductDto.getPrice() == null || newProductDto.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RestException(HttpStatus.BAD_REQUEST,"Price must be positive");
+            throw new RestException(HttpStatus.BAD_REQUEST, "Price must be positive");
         }
 
         // Create new Product from NewProductDto
@@ -82,11 +82,13 @@ public class ProductService {
         return ProductDto.from(savedProduct);
     }
 
-    public void deleteProduct(Long id) {
+    public ProductDto deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
             throw new RestException(HttpStatus.BAD_REQUEST,
                     "Product with id<" + id + "> is not found");
         }
+        Optional<Product> productToDelete = productRepository.findById(id);
         productRepository.deleteById(id);
+        return ProductDto.from(productToDelete);
     }
 }

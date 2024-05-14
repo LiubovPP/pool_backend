@@ -64,13 +64,13 @@ public class User {
 
     //TODO заказы Orders
     // Многие пользователи могут иметь множество продуктов
-    @ManyToMany
+   /* @ManyToMany
     @JoinTable(
-            name = "user_product",
+            name = "order_product",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products;
+    private Set<Product> products;*/
 
 /*
     @OneToMany(mappedBy = "user")

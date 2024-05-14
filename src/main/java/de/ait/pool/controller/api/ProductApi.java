@@ -37,6 +37,6 @@ public interface ProductApi {
 
         @Operation(summary = "Удалить продукт", description = "Доступно администратору. По умолчанию роль - ADMIN")
         @DeleteMapping("/{id}")
-        void deleteProduct(@PathVariable Long id);
+        ProductDto deleteProduct(@PathVariable Long id);
 
 }
