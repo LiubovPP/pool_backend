@@ -21,10 +21,10 @@ public class UserDto {
     @Schema(description = "идентификатор пользователя", example = "1")
     private Long id;
 
-    @Schema(description = "имя пользователя", example = "Marsel")
+    @Schema(description = "имя пользователя", example = "Anton")
     private String firstName;
 
-    @Schema(description = "фамилия пользователя", example = "Sidikov")
+    @Schema(description = "фамилия пользователя", example = "Ivanov")
     private String lastName;
 
     @Schema(description = "Email пользователя", example = "user@mail.com")

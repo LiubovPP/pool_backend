@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,4 +30,9 @@ public class Product {
 
     @Column
     private String category;
+
+    // Многие товары могут быть добавлены в разные корзины
+    @ManyToMany(mappedBy = "products")
+    private Set<Cart> carts= new HashSet<>();
+
 }

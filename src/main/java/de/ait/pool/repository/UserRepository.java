@@ -1,5 +1,6 @@
 package de.ait.pool.repository;
 
+//import de.ait.pool.models.ConfirmationCode;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
     boolean existsByEmail(String email);
+
+//    Optional<User> findFirstByCodesContains(ConfirmationCode code);
 }

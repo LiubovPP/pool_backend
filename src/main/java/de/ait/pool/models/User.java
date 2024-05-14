@@ -5,36 +5,37 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    @Entity
-    @Table(name = "users")
-    public class User {
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "users")
+public class User {
 
-        public enum Role {
-            ADMIN, USER
-        }
+    public enum Role {
+        ADMIN, USER
+    }
 
-        public enum State {
-            NOT_CONFIRMED, CONFIRMED
-        }
+    public enum State {
+        NOT_CONFIRMED, CONFIRMED, DELETED, BANNED
+    }
 
-        // TODO проверить колонки
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column (nullable = false)
-        private Long id;
+    // TODO проверить колонки
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (nullable = false)
+    private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String firstName;
 
-    @Column(nullable = false)
+    @Column
     private String lastName;
 
     @Column(nullable = false, unique = true)
@@ -55,8 +56,26 @@ import java.util.Objects;
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    //TODO заказы Orders
+    // Один пользователь может иметь только одну корзину
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 
+
+
+    //TODO заказы Orders
+    // Многие пользователи могут иметь множество продуктов
+   /* @ManyToMany
+    @JoinTable(
+            name = "order_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products;*/
+
+/*
+    @OneToMany(mappedBy = "user")
+    private Set<ConfirmationCode> codes;
+*/
 
     @Override
     public final boolean equals(Object o) {

@@ -30,6 +30,11 @@ public class NewUserDto {
     @Schema(description = "Фамилия пользователя", example = "Topolcean")
     private String lastName;
 
+    @NonNull
+    @Schema(description = "Номер телефона", example = "+7 952 889 01 88")
+    //@Pattern(regexp = "^\\\\+7 \\\\d{3} \\\\d{3} \\\\d{2} \\\\d{2}$", message = "Номер телефона в формате +7 952 889 01 88")
+    private String phoneNumber;
+
     @Email
     @NotNull
     @Schema(description = "Email пользователя", example = "user@mail.com")

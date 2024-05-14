@@ -49,6 +49,9 @@ public interface UsersApi {
     @PostMapping("/register")
     UserDto register(@RequestBody @Valid NewUserDto newUser);
 
+//    @GetMapping("/confirm/{confirm-code}")
+//    UserDto getConfirmation(@PathVariable("confirm-code") String confirmCode);
+
     // получение текущего (своего) профиля
     @GetMapping("/profile")
     @Operation(summary = "профиль пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
