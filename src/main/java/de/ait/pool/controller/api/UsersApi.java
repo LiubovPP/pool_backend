@@ -27,7 +27,7 @@ import java.util.List;
         @Tag(name = "Users")
 )
 @RequestMapping("/api/users")
-public interface UserApi {
+public interface UsersApi {
 
     @Operation(summary = "Регистрация пользователя", description = "Доступно всем. По умолчанию роль - USER")
     @ApiResponses(value = {
