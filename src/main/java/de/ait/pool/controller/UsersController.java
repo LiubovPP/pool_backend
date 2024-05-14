@@ -1,7 +1,7 @@
 package de.ait.pool.controller;
 
 
-import de.ait.pool.controller.api.UserApi;
+import de.ait.pool.controller.api.UsersApi;
 import de.ait.pool.dto.userDto.NewUserDto;
 import de.ait.pool.dto.userDto.UpdateUserDto;
 import de.ait.pool.dto.userDto.UserDto;
@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.List;
-import java.util.Objects;
 
 //@RequiredArgsConstructor
 @RestController
-public class UsersController implements UserApi {
+public class UsersController implements UsersApi {
 
     private final UsersService usersService;
 

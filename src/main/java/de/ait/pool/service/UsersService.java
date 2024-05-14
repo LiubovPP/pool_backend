@@ -23,7 +23,7 @@ import java.util.UUID;
 import static de.ait.pool.dto.userDto.UserDto.from;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,7 +100,7 @@ public class UsersService {
         usersRepository.save(user);
 
         return user;
-        return UserDto.from(user);
+
     }
 
     private void checkIfExistsByEmail(NewUserDto newUser) {
@@ -131,8 +131,16 @@ public class UsersService {
     public void deleteUser(User user) {
         usersRepository.delete(user);
     }
-//TODO
-   public UserDto updateUser(User userToUpdate, UpdateUserDto updatedUser) {
+
+        user.setState(User.State.CONFIRMED);
+
+        usersRepository.save(user);
+
+        return UserDto.from(user);
+    }*/
+    //TODO
+
+    public UserDto updateUser(User userToUpdate, UpdateUserDto updatedUser) {
         userToUpdate.setFirstName(updatedUser.getFirstName());
         userToUpdate.setLastName(updatedUser.getLastName());
         userToUpdate.setPhoneNumber(updatedUser.getPhoneNumber());
@@ -141,15 +149,13 @@ public class UsersService {
         return UserDto.from(savedUser);
     }
 
-        user.setState(User.State.CONFIRMED);
-
-        usersRepository.save(user);
-
-        return UserDto.from(user);
-    }*/
     public List<UserDto> getAllUsers() {
         List<User> users = usersRepository.findAll();
         return users.stream().map(UserDto::from).collect(Collectors.toList());
+    }
+
+    public void  deleteUser(User userToDelete) {
+        usersRepository.delete(userToDelete);
     }
 }
 
