@@ -1,6 +1,7 @@
 package de.ait.pool.models;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Cart {
 
     // Одна корзина принадлежит только одному пользователю
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
     private User user;
 
     // Многие корзины могут содержать множество товаров
@@ -29,7 +30,7 @@ public class Cart {
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products;
+    private Set<Product> products= new HashSet<>();
 
     @Override
     public String toString() {

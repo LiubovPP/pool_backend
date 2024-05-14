@@ -22,6 +22,12 @@ public class CartController implements CartApi {
     private final ProductRepository productRepository;
     private CartService cartService;
 
+    //TODO CartProduct cp = repo.findByCart_IdAndProduct_Id(cId, pId);
+    //
+    //cp.setQuantity(cp.getQuantity() + 1);
+    //
+    //repo.save(cp);
+
     @Override
     public CartDto updateCart(CartDto cartDto) {
         return null;

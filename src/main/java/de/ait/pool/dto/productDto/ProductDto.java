@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
@@ -45,6 +46,14 @@ public class ProductDto {
                 .title(product.getTitle())
                 .price(product.getPrice())
                 .category(product.getCategory())
+                .build();
+    }
+    public static ProductDto from(Optional<Product> product) {
+        return ProductDto.builder()
+                .id(product.get().getId())
+                .title(product.get().getTitle())
+                .price(product.get().getPrice())
+                .category(product.get().getCategory())
                 .build();
     }
 
