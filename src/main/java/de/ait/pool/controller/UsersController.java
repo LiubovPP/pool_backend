@@ -22,6 +22,11 @@ public class UsersController implements UsersApi {
         return usersService.register(newUser);
     }
 
+//    @Override
+//    public UserDto getConfirmation(String confirmCode) {
+//        return usersService.confirm(confirmCode);
+//    }
+
     @Override
     public UserDto getProfile(AuthenticatedUser user) {
         Long currentUserId = user.getId();
