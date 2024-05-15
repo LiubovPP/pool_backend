@@ -45,7 +45,7 @@ public class User {
     @Column
     private String hashPassword;
 
-    @Column
+    @Column(nullable = false)
     private String phoneNumber;
 
     @Column
