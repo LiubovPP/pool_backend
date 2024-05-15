@@ -18,8 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
-import java.util.UUID;
+
 import static de.ait.pool.dto.userDto.UserDto.from;
 
 import javax.persistence.EntityNotFoundException;
@@ -154,8 +153,21 @@ public class UsersService {
         return users.stream().map(UserDto::from).collect(Collectors.toList());
     }
 
-    public void  deleteUser(User userToDelete) {
+    public UserDto deleteUser(User id) {
+        // Находим пользователя по его идентификатору
+        User userToDelete = usersRepository.findById(id.getId())
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,
+                        "User with id<" + id + "> not found"));
+
+        // Сохраняем информацию о пользователе для последующего возврата
+        UserDto deletedUserDto = UserDto.from(userToDelete);
+
+        // Удаляем пользователя из репозитория
         usersRepository.delete(userToDelete);
+
+        // Возвращаем информацию о удаленном пользователе
+        return deletedUserDto;
     }
+
 }
 
