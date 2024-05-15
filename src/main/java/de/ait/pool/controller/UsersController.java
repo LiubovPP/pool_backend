@@ -46,33 +46,26 @@ public class UsersController implements UsersApi {
         Long currentUserId = user.getId();
         return usersService.getUserById(currentUserId);
     }
-
     @Override
-    public void deleteUser(@PathVariable Long id) {
-        // Получить пользователя по ID
+    public UserDto deleteUser(@PathVariable Long id) {
         User userToDelete = usersService.findById(id);
-
-        // Проверить, существует ли пользователь
         if (userToDelete == null) {
             throw new RestException(HttpStatus.NOT_FOUND, "Пользователь с ID " + id + " не найден");
         }
-
-        // Вызвать сервис для удаления пользователя
         usersService.deleteUser(userToDelete);
+        return UserDto.from(userToDelete);
     }
+
 
     @Transactional
     @Override
     public UserDto updateUser(Long id, UpdateUserDto updatedUser) {
-        // Получить пользователя по ID
         User userToUpdate = usersService.findById(id);
 
-        // Проверить, существует ли пользователь
         if (userToUpdate == null) {
             throw new RestException(HttpStatus.NOT_FOUND, "Пользователь с ID " + id + " не найден");
         }
 
-        // Обновить данные пользователя и вернуть обновленную информацию
         return usersService.updateUser(userToUpdate, updatedUser);
     }
 

@@ -59,7 +59,7 @@ public interface UsersApi {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удалить пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
-   void deleteUser (@PathVariable Long id);
+    UserDto deleteUser (@PathVariable Long id);
 
     @Operation(summary = "Обновить пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
     @PutMapping("/{id}")
