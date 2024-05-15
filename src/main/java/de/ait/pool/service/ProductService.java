@@ -81,8 +81,21 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         return ProductDto.from(savedProduct);
     }
-
     public ProductDto deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new RestException(HttpStatus.BAD_REQUEST,
+                    "Product with id<" + id + "> is not found");
+        }
+        Product productToDelete = productRepository.findById(id)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,
+                        "Product with id<" + id + "> not found"));
+        ProductDto deletedProductDto = ProductDto.from(productToDelete);
+
+        productRepository.deleteById(id);
+
+        return deletedProductDto;
+    }
+    /*public ProductDto deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
             throw new RestException(HttpStatus.BAD_REQUEST,
                     "Product with id<" + id + "> is not found");
@@ -90,5 +103,5 @@ public class ProductService {
         Optional<Product> productToDelete = productRepository.findById(id);
         productRepository.deleteById(id);
         return ProductDto.from(productToDelete);
-    }
+    }*/
 }

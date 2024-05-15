@@ -158,11 +158,7 @@ public class UsersService {
         User userToDelete = usersRepository.findById(id.getId())
                 .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,
                         "User with id<" + id + "> not found"));
-
-        // Сохраняем информацию о пользователе для последующего возврата
         UserDto deletedUserDto = UserDto.from(userToDelete);
-
-        // Удаляем пользователя из репозитория
         usersRepository.delete(userToDelete);
 
         // Возвращаем информацию о удаленном пользователе

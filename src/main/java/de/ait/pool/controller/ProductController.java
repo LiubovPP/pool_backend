@@ -45,7 +45,6 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-
     public ProductDto deleteProduct(@PathVariable Long id) {
         return productService.deleteProduct(id);
     }
