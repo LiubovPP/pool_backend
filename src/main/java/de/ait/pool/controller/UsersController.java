@@ -11,6 +11,7 @@ import de.ait.pool.security.details.AuthenticatedUser;
 import de.ait.pool.service.UsersService;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -60,8 +61,9 @@ public class UsersController implements UsersApi {
         usersService.deleteUser(userToDelete);
     }
 
+    @Transactional
     @Override
-    public UserDto updateUser(Long id,  UpdateUserDto updatedUser) {
+    public UserDto updateUser(Long id, UpdateUserDto updatedUser) {
         // Получить пользователя по ID
         User userToUpdate = usersService.findById(id);
 

@@ -52,14 +52,5 @@ public class UserDto {
                 .map(UserDto::from)
                 .collect(Collectors.toList());
     }
-    public static UserDto from(UpdateUserDto user, Long id) {
-        return UserDto.builder()
-                .id(id)
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .phoneNumber(user.getPhoneNumber())
-                .role(user.getRole())
-                .build();
-    }
 
 }
