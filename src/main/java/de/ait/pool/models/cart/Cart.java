@@ -1,8 +1,9 @@
-package de.ait.pool.models;
+package de.ait.pool.models.cart;
+import de.ait.pool.models.Product;
+import de.ait.pool.models.User;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
