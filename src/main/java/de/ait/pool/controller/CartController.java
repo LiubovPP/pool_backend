@@ -2,18 +2,11 @@ package de.ait.pool.controller;
 
 import de.ait.pool.controller.api.CartApi;
 import de.ait.pool.dto.cartDto.CartDto;
-import de.ait.pool.models.Cart;
-import de.ait.pool.models.Product;
 import de.ait.pool.repository.CartRepository;
 import de.ait.pool.repository.ProductRepository;
 import de.ait.pool.service.CartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
