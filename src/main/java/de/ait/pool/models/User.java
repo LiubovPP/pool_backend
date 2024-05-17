@@ -72,6 +72,7 @@ public class User {
     )
     private Set<Product> products;*/
 
+
 /*
     @OneToMany(mappedBy = "user")
     private Set<ConfirmationCode> codes;

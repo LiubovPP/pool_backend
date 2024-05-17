@@ -2,6 +2,7 @@ package de.ait.pool.models;
 
 
 import de.ait.pool.models.cart.Cart;
+import de.ait.pool.models.cart.CartProduct;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,8 +33,14 @@ public class Product {
     @Column
     private String category;
 
+
     // Многие товары могут быть добавлены в разные корзины
-    @ManyToMany(mappedBy = "products")
-    private Set<Cart> carts= new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "cart_product",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<CartProduct> cartProducts= new HashSet<>();
 
 }

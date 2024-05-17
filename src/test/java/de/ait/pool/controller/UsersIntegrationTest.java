@@ -85,7 +85,7 @@ class UsersIntegrationTest {
             mockMvc.perform(post("/api/users/register")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("{\n" +
-                                    "  \"email\": \"sidikov.marselgmail.com\",\n" +
+                                    "  \"email\": \"anton.gmail.com\",\n" +
                                     "  \"password\": \"Qwerty007!\"\n" +
                                     "}"))
                     .andExpect(status().isBadRequest());

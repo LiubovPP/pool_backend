@@ -24,18 +24,14 @@ public class Cart {
     @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
     private User user;
 
+
     // Многие корзины могут содержать множество товаров
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartProduct> cartProducts = new HashSet<>();
 
     @Override
     public String toString() {
         return String.format("Cart: ID - %d, products - %d items",
-                id, products.size());
+                id, cartProducts.size());
     }
 }
