@@ -1,14 +1,13 @@
 package de.ait.pool.controller.api;
 
 import de.ait.pool.dto.cartDto.CartProductDto;
+import de.ait.pool.dto.cartDto.UpdateCartProductDto;
 import de.ait.pool.dto.productDto.ProductDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.Set;
@@ -30,7 +29,13 @@ public interface CartProduct {
     @GetMapping("/{cartId}/cart-products/{cartProductId}")
     CartProductDto getCartProductById(@PathVariable Long cartId, @PathVariable Long cartProductId);
 
-//PUT /api/cart/{cartId}/cart-products/{cartProductId} - Обновление информации о продукте в корзине (например, количество).
+    //PUT /api/cart/{cartId}/cart-products/{cartProductId} - Обновление информации о продукте в корзине (например, количество).
+    @PutMapping("/{cartId}/cart-products/{cartProductId}")
+    @Operation(summary = "Обновление информации о продукте - количества - в корзине", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
+    public CartProductDto updateCartProduct(@PathVariable Long cartId,
+                                            @PathVariable Long cartProductId,
+                                            @RequestBody UpdateCartProductDto updateCartProductDto);
+
 //DELETE /api/cart/{cartId}/cart-products/{cartProductId} - Удаление продукта из корзины по идентификатору.
 
 
