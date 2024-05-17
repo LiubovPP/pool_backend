@@ -20,7 +20,7 @@ public interface CartProduct {
 
     @Operation(summary = "Получение списка всех продуктов в корзине", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     @GetMapping("/{cartId}")
-    public Set<CartProductDto> getCartProducts(@PathVariable Long cartId);
+    Set<CartProductDto> getCartProducts(@PathVariable Long cartId);
 
     @Operation(summary = "Получение информации о продукте в корзине по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     @GetMapping("/{cartId}/cart-products/{cartProductId}")

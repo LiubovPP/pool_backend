@@ -12,11 +12,30 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CartProductService {
 private final CartProductRepository cartProductRepository;
 private final CartRepository cartRepository;
+
+    public Set<CartProductDto> getCartProducts(Long cartId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
+
+        return cart.getCartProducts().stream().map(cartProduct -> {
+            Product product = cartProduct.getProduct();
+            return CartProductDto.builder()
+                    .id(cartProduct.getId())
+                    .cartId(cartProduct.getCart().getId())
+                    .productId(product.getId())
+                    .quantity(cartProduct.getQuantity())
+                    .productName(cartProduct.getProduct().toString())
+                    .build();
+        }).collect(Collectors.toSet());
+    }
 
     public CartProductDto updateCartProduct(Long cartId, Long cartProductId, UpdateCartProductDto updateCartProductDto) {
         // Проверяем, существует ли корзина
@@ -39,8 +58,11 @@ private final CartRepository cartRepository;
         Product product = cartProduct.getProduct();
 
         return CartProductDto.builder()
+                .id(cartProduct.getId())
+                .cartId(cartProduct.getCart().getId())
                 .productId(product.getId())
                 .quantity(cartProduct.getQuantity())
+                .productName(cartProduct.getProduct().toString())
                 .build();
     }
 

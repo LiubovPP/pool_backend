@@ -25,22 +25,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CartProductController implements CartProduct {
 
-    private final CartRepository cartRepository;
     private final CartService cartService;
     private final CartProductService cartProductService;
 
     @Override
     public Set<CartProductDto> getCartProducts(Long cartId) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
-
-        return cart.getCartProducts().stream().map(cartProduct -> {
-            Product product = cartProduct.getProduct();
-            return CartProductDto.builder()
-                    .productId(product.getId())
-                    .quantity(cartProduct.getQuantity())
-                    .build();
-        }).collect(Collectors.toSet());
+        return cartProductService.getCartProducts(cartId);
     }
 
     @Override

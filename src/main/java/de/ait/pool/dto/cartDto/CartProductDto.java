@@ -28,10 +28,15 @@ public class CartProductDto {
     @Schema(description = "Количество продукта", example = "2")
     private Integer quantity;
 
+    @Schema(description = "Название продукта", example = "chemie")
+    private String productName;
+
     public static CartProductDto fromCartProduct(CartProduct cartProduct) {
         return CartProductDto.builder()
                 .id(cartProduct.getId())
+                .cartId(cartProduct.getId())
                 .productId(cartProduct.getProduct().getId())
+                .productName(cartProduct.getProduct().toString())
                 .quantity(cartProduct.getQuantity())
                 .build();
     }
