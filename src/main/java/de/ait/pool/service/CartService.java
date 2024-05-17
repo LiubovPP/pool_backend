@@ -48,46 +48,19 @@ public class CartService {
         return CartDto.fromCart(savedCart);
     }
 
-/*    @Transactional
-    public void addProductToCart(CartProductDto cartProductDto) {
-        Cart cart = cartRepository.findById(cartProductDto.getCartId())
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
-        Product product = productRepository.findById(cartProductDto.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+    public CartProductDto getCartProductById(Long cartId, Long cartProductId) {
+        CartProduct cartProduct = cartProductRepository.findById(cartProductId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "CartProduct not found"));
 
-        CartProduct cartProduct = new CartProduct();
-        cartProduct.setCart(cart);
-        cartProduct.setProduct(product);
-        cartProduct.setQuantity(cartProductDto.getQuantity());
+        if (!cartProduct.getCart().getId().equals(cartId)) {
+            throw new RestException(HttpStatus.NOT_FOUND, "CartProduct does not belong to the specified cart");
+        }// ?? HttpStatus какой статус
 
-        cartProductRepository.save(cartProduct);
+        Product product = cartProduct.getProduct();
+        return CartProductDto.builder()
+                .productId(product.getId())
+                .quantity(cartProduct.getQuantity())
+                .build();
     }
 
-    public CartDto updateCart(CartDto cartDto) {
-
-    }*/
-
-   /* @Transactional(readOnly = true)
-    @Override
-    public CartDto getCartById(Long cartId) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
-
-        CartDto cartDto = new CartDto();
-        cartDto.setId(cart.getId());
-        cartDto.setCustomerName(cart.getCustomerName());
-
-        Set<CartProductDto> cartProductDTOs = cart.getCartProducts().stream().map(cartProduct -> {
-            CartProductDTO cartProductDTO = new CartProductDTO();
-            cartProductDTO.setId(cartProduct.getId());
-            cartProductDTO.setCartId(cartProduct.getCart().getId());
-            cartProductDTO.setProductId(cartProduct.getProduct().getId());
-            cartProductDTO.setQuantity(cartProduct.getQuantity());
-            return cartProductDTO;
-        }).collect(Collectors.toSet());
-
-        cartDTO.setCartProducts(cartProductDTOs);
-
-        return cartDTO;
-    }*/
 }

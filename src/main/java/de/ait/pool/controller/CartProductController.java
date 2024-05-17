@@ -6,6 +6,7 @@ import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.Product;
 import de.ait.pool.models.cart.Cart;
 import de.ait.pool.repository.CartRepository;
+import de.ait.pool.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class CartProductController implements CartProduct {
 
     private final CartRepository cartRepository;
+    private final CartService cartService;
 
     @Override
     public Set<CartProductDto> getCartProducts(Long cartId) {
@@ -31,5 +33,10 @@ public class CartProductController implements CartProduct {
                     .quantity(cartProduct.getQuantity())
                     .build();
         }).collect(Collectors.toSet());
+    }
+
+    @Override
+    public CartProductDto getCartProductById(Long cartId, Long cartProductId) {
+        return cartService.getCartProductById(cartId, cartProductId);
     }
 }
