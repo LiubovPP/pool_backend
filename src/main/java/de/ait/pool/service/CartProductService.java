@@ -44,4 +44,24 @@ private final CartRepository cartRepository;
                 .build();
     }
 
+    public CartProductDto deleteCartProduct(Long cartId, Long cartProductId) {
+        // Проверяем, существует ли корзина
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
+
+        // Проверяем, существует ли продукт в корзине
+        CartProduct cartProduct = cartProductRepository.findById(cartProductId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "CartProduct not found"));
+
+        // Проверяем, принадлежит ли продукт указанной корзине
+        if (!cartProduct.getCart().getId().equals(cartId)) {
+            throw new RestException(HttpStatus.CONFLICT, "CartProduct does not belong to the specified cart");
+        }
+
+        // Удаляем продукт из корзины
+        cartProductRepository.delete(cartProduct);
+
+        // Возвращаем DTO удаленного продукта
+        return CartProductDto.fromCartProduct(cartProduct);
+    }
 }

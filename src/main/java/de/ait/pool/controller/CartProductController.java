@@ -54,5 +54,12 @@ public class CartProductController implements CartProduct {
                                             @RequestBody UpdateCartProductDto updateCartProductDto) {
         return cartProductService.updateCartProduct(cartId, cartProductId, updateCartProductDto);
     }
+
+    @Override
+    public CartProductDto deleteCartProduct(Long cartId, Long cartProductId) {
+        return cartProductService.deleteCartProduct(cartId, cartProductId);
+    }
+
+
 }
 

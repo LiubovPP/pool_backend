@@ -18,25 +18,23 @@ import java.util.Set;
 @RequestMapping("/api/cart")
 public interface CartProduct {
 
-    //GET /api/cart/{cartId}/cart-products - Получение списка всех продуктов в корзине.
     @Operation(summary = "Получение списка всех продуктов в корзине", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     @GetMapping("/{cartId}")
     public Set<CartProductDto> getCartProducts(@PathVariable Long cartId);
 
-
-    //GET /api/cart/{cartId}/cart-products/{cartProductId} - Получение информации о продукте в корзине по идентификатору.
     @Operation(summary = "Получение информации о продукте в корзине по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     @GetMapping("/{cartId}/cart-products/{cartProductId}")
     CartProductDto getCartProductById(@PathVariable Long cartId, @PathVariable Long cartProductId);
 
-    //PUT /api/cart/{cartId}/cart-products/{cartProductId} - Обновление информации о продукте в корзине (например, количество).
     @PutMapping("/{cartId}/cart-products/{cartProductId}")
     @Operation(summary = "Обновление информации о продукте - количества - в корзине", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     public CartProductDto updateCartProduct(@PathVariable Long cartId,
                                             @PathVariable Long cartProductId,
                                             @RequestBody UpdateCartProductDto updateCartProductDto);
 
-//DELETE /api/cart/{cartId}/cart-products/{cartProductId} - Удаление продукта из корзины по идентификатору.
-
+    @DeleteMapping("/{cartId}/cart-products/{cartProductId}")
+    @Operation(summary = "Удаление продукта из корзины по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
+    public CartProductDto deleteCartProduct(@PathVariable Long cartId,
+                                            @PathVariable Long cartProductId);
 
 }
