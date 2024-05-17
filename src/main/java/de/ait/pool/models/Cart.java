@@ -30,7 +30,7 @@ public class Cart {
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products= new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     @Override
     public String toString() {

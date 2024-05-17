@@ -12,6 +12,7 @@ import io.swagger.v3.oas.models.info.Info;
 //import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 //import freemarker.template.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //import java.util.Arrays;
 
 import static de.ait.pool.documentation.OpenApiDocumentation.*;
+
 
 @org.springframework.context.annotation.Configuration
 public class AppConfig {
