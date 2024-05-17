@@ -1,6 +1,7 @@
 package de.ait.pool.models;
 
 
+import de.ait.pool.models.cart.Cart;
 import lombok.*;
 
 import javax.persistence.*;
