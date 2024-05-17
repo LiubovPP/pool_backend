@@ -25,7 +25,7 @@ public interface OrderApi {
     @GetMapping
     List<OrderDto> getOrders();
 
-    @Operation(summary = "Создать заказ", description = "Доступно администратору. По умолчанию роль - ADMIN")
+    @Operation(summary = "Создание нового заказа", description = "Доступно администратору. По умолчанию роль - ADMIN")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     OrderDto createOrder(@RequestBody @Valid NewOrderDto newOrderDto);
