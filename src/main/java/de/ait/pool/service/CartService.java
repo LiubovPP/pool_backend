@@ -8,6 +8,7 @@ import de.ait.pool.models.cart.CartProduct;
 import de.ait.pool.repository.CartProductRepository;
 import de.ait.pool.repository.CartRepository;
 import de.ait.pool.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +18,13 @@ import java.util.stream.Collectors;
 
 
 @Service
+@RequiredArgsConstructor
 public class CartService {
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-     private CartProductRepository cartProductRepository;
+     private final CartProductRepository cartProductRepository;
 
     public CartDto updateCart(CartDto cartDto) {
         // Найти корзину по id

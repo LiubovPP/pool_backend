@@ -16,6 +16,13 @@ import java.util.List;
 @RequestMapping("/api/order-products")
 
 public interface OrderProductApi {
+    //Продукт в заказе (OrderProduct)
+    //GET /api/orders/{orderId}/order-products - Получение списка всех продуктов в заказе.
+    //GET /api/orders/{orderId}/order-products/{orderProductId} - Получение информации о продукте в заказе по идентификатору.
+    //PUT /api/orders/{orderId}/order-products/{orderProductId} - Обновление информации о продукте в заказе (например, количество).
+    //DELETE /api/orders/{orderId}/order-products/{orderProductId} - Удаление продукта из заказа по идентификатору.
+//TODO Kirill привести в соотствие с описанием сверху
+
     @Operation(summary = "Получить продукты заказа по ID заказа", description = "Доступно администратору. По умолчанию роль - ADMIN")
     @GetMapping("/by-order/{orderId}")
     List<OrderProductDto> getOrderProductsByOrderId(@PathVariable Long orderId);
