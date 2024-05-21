@@ -10,6 +10,8 @@ import de.ait.pool.exceptions.RestException;
 //import de.ait.pool.models.ConfirmationCode;
 import de.ait.pool.models.User;
 //import de.ait.pool.repository.ConfirmationCodesRepository;
+import de.ait.pool.models.cart.Cart;
+import de.ait.pool.repository.CartRepository;
 import de.ait.pool.repository.UserRepository;
 //import freemarker.template.Configuration;
 import lombok.RequiredArgsConstructor;
@@ -33,17 +35,17 @@ public class UsersService {
 
     private final UserRepository usersRepository;
 
-   // private final ConfirmationCodesRepository confirmationCodesRepository;
+    // private final ConfirmationCodesRepository confirmationCodesRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     //private final PoolProjectMailSender mailSender;
 
-   /* private final MailTemplatesUtil mailTemplatesUtil;
+    /* private final MailTemplatesUtil mailTemplatesUtil;
 
-    @Value("${base.url}")
-    private String baseUrl;
-*/
+     @Value("${base.url}")
+     private String baseUrl;
+ */
     //@Transactional
     public UserDto register(NewUserDto newUser) {
 
@@ -61,7 +63,15 @@ public class UsersService {
 
         //mailSender.send(user.getEmail(), "Registration", html); // @Async
 
+        createCart(user);
+
         return from(user);
+    }
+
+    private static void createCart(User user) {
+        Cart cart = new Cart();
+        cart.setUser(user);
+        user.setCart(cart);
     }
 //
    /* private String createLinkForConfirmation(String codeValue) {
