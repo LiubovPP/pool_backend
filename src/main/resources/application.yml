@@ -32,5 +32,11 @@ spring:
        org:
          springframework:
           security: DEBUG
+
+server:
+  servlet:
+    session:
+      timeout: 60m
+
 #base:
 #  url: https://${NGROK_ID}.ngrok-free.app

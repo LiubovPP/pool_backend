@@ -1,5 +1,6 @@
 package de.ait.pool.models.cart;
-import de.ait.pool.models.Product;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.ait.pool.models.User;
 import lombok.*;
 import javax.persistence.*;
@@ -13,10 +14,11 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "cart")
+
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     // Одна корзина принадлежит только одному пользователю
@@ -28,6 +30,8 @@ public class Cart {
     // Многие корзины могут содержать множество товаров
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartProduct> cartProducts = new HashSet<>();
+
+
 
     @Override
     public String toString() {

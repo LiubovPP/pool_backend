@@ -65,7 +65,7 @@ public interface UsersApi {
     @PutMapping("/{id}")
     UserDto updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserDto updatedUser);
 
-    @GetMapping("/users")
+    @GetMapping
     @Operation(summary = "Список пользователей", description = "Доступно администратору. По умолчанию роль - ADMIN")
    List<UserDto> getAllUsers();
     }

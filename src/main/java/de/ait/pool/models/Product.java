@@ -18,6 +18,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table
+
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,14 +34,7 @@ public class Product {
     @Column
     private String category;
 
-
-    // Многие товары могут быть добавлены в разные корзины
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<CartProduct> cartProducts= new HashSet<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+     private Set<CartProduct> cartProducts= new HashSet<>();
 
 }
