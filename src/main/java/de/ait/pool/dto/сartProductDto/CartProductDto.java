@@ -1,7 +1,5 @@
-package de.ait.pool.dto.cartDto;
+package de.ait.pool.dto.сartProductDto;
 
-import de.ait.pool.models.Product;
-import de.ait.pool.models.cart.Cart;
 import de.ait.pool.models.cart.CartProduct;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -9,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,10 +25,15 @@ public class CartProductDto {
     @Schema(description = "Количество продукта", example = "2")
     private Integer quantity;
 
+    @Schema(description = "Название продукта", example = "chemie")
+    private String productName;
+
     public static CartProductDto fromCartProduct(CartProduct cartProduct) {
         return CartProductDto.builder()
                 .id(cartProduct.getId())
+                .cartId(cartProduct.getId())
                 .productId(cartProduct.getProduct().getId())
+                .productName(cartProduct.getProduct().toString())
                 .quantity(cartProduct.getQuantity())
                 .build();
     }

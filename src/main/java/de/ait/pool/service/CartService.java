@@ -1,6 +1,7 @@
 package de.ait.pool.service;
 import de.ait.pool.dto.cartDto.CartDto;
-import de.ait.pool.dto.cartDto.CartProductDto;
+import de.ait.pool.dto.productDto.AddProductToCartDto;
+import de.ait.pool.dto.сartProductDto.CartProductDto;
 import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.Product;
 import de.ait.pool.models.cart.Cart;
@@ -11,9 +12,7 @@ import de.ait.pool.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -63,4 +62,26 @@ public class CartService {
                 .build();
     }
 
+    public CartProductDto addProductToCart(Long cartId, AddProductToCartDto addProductToCartDto) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,"Cart not found"));
+
+        Product product = productRepository.findById(addProductToCartDto.getProductId())
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,"Product not found"));
+
+        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cartId, addProductToCartDto.getProductId());
+        if (cartProduct == null) {
+            cartProduct = CartProduct.builder()
+                    .cart(cart)
+                    .product(product)
+                    .quantity(addProductToCartDto.getQuantity())
+                    .build();
+        } else {
+            cartProduct.setQuantity(cartProduct.getQuantity() + addProductToCartDto.getQuantity());
+        }
+
+        cartProductRepository.save(cartProduct);
+        cartRepository.save(cart);
+        return CartProductDto.fromCartProduct(cartProduct);
+    }
 }
