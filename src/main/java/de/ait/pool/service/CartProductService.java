@@ -1,6 +1,6 @@
 package de.ait.pool.service;
 
-import de.ait.pool.dto.cartDto.CartProductDto;
+import de.ait.pool.dto.сartProductDto.CartProductDto;
 import de.ait.pool.dto.cartDto.UpdateCartProductDto;
 import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.Product;

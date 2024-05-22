@@ -1,5 +1,6 @@
 package de.ait.pool.dto.cartDto;
 
+import de.ait.pool.dto.сartProductDto.CartProductDto;
 import de.ait.pool.models.cart.Cart;
 import de.ait.pool.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;

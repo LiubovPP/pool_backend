@@ -4,19 +4,22 @@ import de.ait.pool.models.Product;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "cart_product")
+
+
 public class CartProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false, unique = true)
     private Long id;
 
     @ManyToOne
@@ -27,7 +30,8 @@ public class CartProduct {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column
+    @Column(nullable = false)
     private Integer quantity;
+
 
 }
