@@ -25,28 +25,6 @@ public class CartService {
 
      private final CartProductRepository cartProductRepository;
 
-    public CartDto updateCart(CartDto cartDto) {
-        // Найти корзину по id
-        Cart cart = cartRepository.findById(cartDto.getId())
-                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
-
-        cart.getCartProducts().clear();
-
-        cart.getCartProducts().addAll(
-                cartDto.getCartProductDtos().stream().map(cartProductDto -> {
-                    CartProduct cartProduct = new CartProduct();
-                    cartProduct.setCart(cart);
-                    cartProduct.setProduct(productRepository.findById(cartProductDto.getProductId())
-                            .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Product not found")));
-                    cartProduct.setQuantity(cartProductDto.getQuantity());
-                    return cartProduct;
-                }).collect(Collectors.toSet())
-        );
-
-        Cart savedCart = cartRepository.save(cart);
-        return CartDto.fromCart(savedCart);
-    }
-
     public CartProductDto getCartProductById(Long cartId, Long cartProductId) {
         CartProduct cartProduct = cartProductRepository.findById(cartProductId)
                 .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "CartProduct not found"));
@@ -57,8 +35,11 @@ public class CartService {
 
         Product product = cartProduct.getProduct();
         return CartProductDto.builder()
+                .id(product.getId())
+                .cartId(cartId)
                 .productId(product.getId())
                 .quantity(cartProduct.getQuantity())
+                .productName(product.getTitle())
                 .build();
     }
 

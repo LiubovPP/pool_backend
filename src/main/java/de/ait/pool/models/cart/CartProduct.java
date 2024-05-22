@@ -1,5 +1,6 @@
 package de.ait.pool.models.cart;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.ait.pool.models.Product;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class CartProduct {
     @Column(nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 

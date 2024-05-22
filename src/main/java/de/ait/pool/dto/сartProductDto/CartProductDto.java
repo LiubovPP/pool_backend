@@ -31,9 +31,9 @@ public class CartProductDto {
     public static CartProductDto fromCartProduct(CartProduct cartProduct) {
         return CartProductDto.builder()
                 .id(cartProduct.getId())
-                .cartId(cartProduct.getId())
+                .cartId(cartProduct.getCart().getId())
                 .productId(cartProduct.getProduct().getId())
-                .productName(cartProduct.getProduct().toString())
+                .productName(cartProduct.getProduct().getTitle())
                 .quantity(cartProduct.getQuantity())
                 .build();
     }

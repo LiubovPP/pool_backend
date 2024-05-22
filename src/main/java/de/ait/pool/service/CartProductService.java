@@ -32,7 +32,7 @@ private final CartRepository cartRepository;
                     .cartId(cartProduct.getCart().getId())
                     .productId(product.getId())
                     .quantity(cartProduct.getQuantity())
-                    .productName(cartProduct.getProduct().toString())
+                    .productName(cartProduct.getProduct().getTitle())
                     .build();
         }).collect(Collectors.toSet());
     }
@@ -62,7 +62,7 @@ private final CartRepository cartRepository;
                 .cartId(cartProduct.getCart().getId())
                 .productId(product.getId())
                 .quantity(cartProduct.getQuantity())
-                .productName(cartProduct.getProduct().toString())
+                .productName(cartProduct.getProduct().getTitle())
                 .build();
     }
 
