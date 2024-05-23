@@ -38,6 +38,7 @@ public class UsersService {
     // private final ConfirmationCodesRepository confirmationCodesRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     //private final PoolProjectMailSender mailSender;
 
@@ -174,6 +175,7 @@ public class UsersService {
         // Возвращаем информацию о удаленном пользователе
         return deletedUserDto;
     }
+
 
 }
 
