@@ -40,7 +40,6 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/users/profile/**").hasAnyAuthority("ADMIN","USER")
-                .antMatchers("c")
                 //.antMatchers(HttpMethod.GET, "/api/products").permitAll()
                 //.antMatchers("/api/users/confirm/**").permitAll()
                 .antMatchers("/api/**").authenticated(); // разрешаем доступ для всех остальных endpoints только аутентифицированным пользователям
