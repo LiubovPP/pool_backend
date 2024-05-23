@@ -54,7 +54,7 @@ public interface UsersApi {
 
     // получение текущего (своего) профиля
     @GetMapping("/profile")
-    @Operation(summary = "профиль пользователя", description = "Доступно администратору. По умолчанию роль - ADMIN")
+    @Operation(summary = "профиль пользователя", description = "Доступно аутентифицированному пользователю. По умолчанию роль - ADMIN, USER")
     UserDto getProfile(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
     @DeleteMapping("/{id}")
