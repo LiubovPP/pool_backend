@@ -3,6 +3,7 @@ package de.ait.pool.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -72,5 +73,6 @@ public class SecurityConfig {
         builder.userDetailsService(userDetailsServiceImpl)
                 .passwordEncoder(passwordEncoder); // связали все в одном
     }
+
 }
 
