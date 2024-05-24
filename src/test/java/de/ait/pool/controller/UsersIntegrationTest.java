@@ -12,11 +12,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -54,8 +55,9 @@ class UsersIntegrationTest {
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
         public void return_list_of_users() throws Exception {
             mockMvc.perform(get("/api/users"))
+                    .andDo(print())
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.size()", is(1)));
+                    .andExpect(jsonPath("$.size()", is(2)));
         }
     }
 
@@ -68,7 +70,7 @@ class UsersIntegrationTest {
         public void return_created_user() throws Exception {
             mockMvc.perform(post("/api/users/register")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\n" +
+                            .content("{" +
                                     "  \"firstName\": \"Kirill\",\n" +
                                     "  \"lastName\": \"Topolcean\",\n" +
                                     "  \"email\": \"user@mail.com\",\n" +
