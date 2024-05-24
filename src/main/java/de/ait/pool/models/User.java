@@ -1,11 +1,11 @@
 package de.ait.pool.models;
 
+import de.ait.pool.models.cart.Cart;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Getter
@@ -46,6 +46,7 @@ public class User {
     private String hashPassword;
 
 
+    @Column(nullable = false)
     private String phoneNumber;
 
     @Column
@@ -71,6 +72,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private Set<Product> products;*/
+
 
 /*
     @OneToMany(mappedBy = "user")

@@ -1,6 +1,8 @@
 package de.ait.pool.models;
 
 
+import de.ait.pool.models.cart.Cart;
+import de.ait.pool.models.cart.CartProduct;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +18,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table
+
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +34,7 @@ public class Product {
     @Column
     private String category;
 
-    // Многие товары могут быть добавлены в разные корзины
-    @ManyToMany(mappedBy = "products")
-    private Set<Cart> carts= new HashSet<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+     private Set<CartProduct> cartProducts= new HashSet<>();
 
 }

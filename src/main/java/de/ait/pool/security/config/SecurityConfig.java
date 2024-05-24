@@ -3,6 +3,7 @@ package de.ait.pool.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,7 +36,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/swagger-ui/**").permitAll() // разрешаем всем доступ к Swagger
                 .antMatchers(HttpMethod.POST, "/api/users/register/**").permitAll()
-                .antMatchers("/api/products/**").permitAll()
+                .antMatchers("/api/users/login/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/users/**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/users").hasAnyAuthority("ADMIN")
                 //.antMatchers(HttpMethod.GET, "/api/products").permitAll()
                 //.antMatchers("/api/users/confirm/**").permitAll()
                 .antMatchers("/api/**").authenticated(); // разрешаем доступ для всех остальных endpoints только аутентифицированным пользователям
@@ -68,5 +72,6 @@ public class SecurityConfig {
         builder.userDetailsService(userDetailsServiceImpl)
                 .passwordEncoder(passwordEncoder); // связали все в одном
     }
+
 }
 

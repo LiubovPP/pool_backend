@@ -1,7 +1,7 @@
 package de.ait.pool.dto.cartDto;
 
-import de.ait.pool.models.Cart;
-import de.ait.pool.models.Product;
+import de.ait.pool.dto.сartProductDto.CartProductDto;
+import de.ait.pool.models.cart.Cart;
 import de.ait.pool.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -9,8 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -23,13 +23,15 @@ public class CartDto {
     @Schema(description = "User корзины", example = "Max Mustermann")
     private User user;
     @Schema(description = "Список продуктов", example = "Услуга или химия")
-    private Set<Product> products;
+    private Set<CartProductDto> cartProductDtos;
 
     public static CartDto fromCart(Cart cart) {
         return CartDto.builder()
-                // .id(cart.getId()) ??? TODO
-                .user(cart.getUser())
-                .products(cart.getProducts())
+                .id(cart.getId())
+                .user(cart.getUser()) // Получение имени пользователя
+                .cartProductDtos(cart.getCartProducts().stream()
+                        .map(CartProductDto::fromCartProduct)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 
