@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS cart_products (
 -- Данные пользователей
 INSERT INTO users (id, first_name, last_name, email, hash_password, phone_number, role)
 VALUES
-    (1, 'Kirill', 'Topolcean', 'user@mail.com', 'Qwerty007!', '+7 952 889 01 88', 'USER'),
-    (2, 'Kir', 'Top', 'kim@mail.com', 'Qwerty007!', '+7 952 889 01 00', 'ADMIN');
+    (1, 'Kirill', 'Topolcean', 'user@mail.com', '$2a$10$7QF8bKPIz5/J2N1AJo5Z1OGiNyDBg0CzjD3o0/7J12xuj/mOi8FAa', '+7 952 889 01 88', 'USER'),  -- хешированный пароль для 'Qwerty007!'
+    (2, 'Kir', 'Top', 'kim@mail.com', '$2a$10$7QF8bKPIz5/J2N1AJo5Z1OGiNyDBg0CzjD3o0/7J12xuj/mOi8FAa', '+7 952 889 01 00', 'ADMIN');  -- хешированный пароль для 'Qwerty007!'
 
 -- Данные продуктов
 INSERT INTO products (id, name, price) VALUES

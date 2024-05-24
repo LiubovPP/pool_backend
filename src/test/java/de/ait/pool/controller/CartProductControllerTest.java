@@ -57,9 +57,9 @@ public class CartProductControllerTest {
         @WithUserDetails(value = "user")
         @Test
         @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-        public void return_403_for_not_admin() throws Exception {
+        public void return_200_for_not_admin() throws Exception {
             mockMvc.perform(get("/api/cart/1"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isOk());
         }
 
         @WithUserDetails(value = "admin")

@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -70,7 +70,7 @@ class UsersIntegrationTest {
         public void return_created_user() throws Exception {
             mockMvc.perform(post("/api/users/register")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\n" +
+                            .content("{" +
                                     "  \"firstName\": \"Kirill\",\n" +
                                     "  \"lastName\": \"Topolcean\",\n" +
                                     "  \"email\": \"user@mail.com\",\n" +
