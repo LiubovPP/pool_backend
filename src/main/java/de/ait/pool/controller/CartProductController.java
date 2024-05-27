@@ -1,6 +1,6 @@
 package de.ait.pool.controller;
 
-import de.ait.pool.controller.api.CartProduct;
+import de.ait.pool.controller.api.CartProductApi;
 import de.ait.pool.dto.сartProductDto.CartProductDto;
 import de.ait.pool.dto.cartDto.UpdateCartProductDto;
 import de.ait.pool.dto.productDto.AddProductToCartDto;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-public class CartProductController implements CartProduct {
+public class CartProductController implements CartProductApi {
 
     private final CartService cartService;
     private final CartProductService cartProductService;

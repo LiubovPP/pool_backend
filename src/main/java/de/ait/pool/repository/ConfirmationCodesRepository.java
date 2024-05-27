@@ -1,4 +1,3 @@
-/*
 package de.ait.pool.repository;
 
 import de.ait.pool.models.ConfirmationCode;
@@ -10,4 +9,3 @@ import java.util.Optional;
 public interface ConfirmationCodesRepository extends JpaRepository<ConfirmationCode,Long> {
     Optional<ConfirmationCode> findByCodeAndExpiredDateTimeAfter(String code, LocalDateTime now);
 }
-*/

@@ -1,4 +1,3 @@
-/*
 package de.ait.pool.models;
 
 import lombok.*;
@@ -29,4 +28,3 @@ public class ConfirmationCode {
     @Column(nullable = false)
     private LocalDateTime expiredDateTime;
 }
-*/
