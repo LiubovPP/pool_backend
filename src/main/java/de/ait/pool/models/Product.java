@@ -37,4 +37,10 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
      private Set<CartProduct> cartProducts= new HashSet<>();
 
+    public Product(Long productId, String testTitle, BigDecimal testPrice, String testCategory) {
+        this.id = productId;
+        this.title = testTitle;
+        this.price= testPrice;
+        this.category = testCategory;
+    }
 }
