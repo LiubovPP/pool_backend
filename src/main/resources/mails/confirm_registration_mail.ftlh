@@ -1,4 +1,3 @@
-<#--
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,4 +9,4 @@
 <h2>Добрый день, ${firstName} ${lastName}!</h2>
 <p>Для подтверждения регистрации пройдите по <a href="${link}">ссылке</a></p>
 </body>
-</html>-->
+</html>

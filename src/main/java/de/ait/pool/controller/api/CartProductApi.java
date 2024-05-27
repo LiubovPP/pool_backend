@@ -14,7 +14,7 @@ import java.util.Set;
         @Tag(name = "CartProduct-продукт в корзине")
 )
 @RequestMapping("/api/cart/{cartId}")
-public interface CartProduct {
+public interface CartProductApi {
     //GET /api/cart/{userId} - Получение информации о корзине по идентификатору пользователя.
     //POST /api/cart - Создание новой корзины для пользователя.
     //POST /api/cart/{cartId}/products - Добавление продукта в корзину.

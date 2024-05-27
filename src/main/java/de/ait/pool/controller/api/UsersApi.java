@@ -49,8 +49,8 @@ public interface UsersApi {
     @PostMapping("/register")
     UserDto register(@RequestBody @Valid NewUserDto newUser);
 
-//    @GetMapping("/confirm/{confirm-code}")
-//    UserDto getConfirmation(@PathVariable("confirm-code") String confirmCode);
+    @GetMapping("/confirm/{confirm-code}")
+    UserDto getConfirmation(@PathVariable("confirm-code") String confirmCode);
 
     // получение текущего (своего) профиля
     @GetMapping("/profile")

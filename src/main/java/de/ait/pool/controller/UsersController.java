@@ -9,7 +9,7 @@ import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.User;
 import de.ait.pool.security.details.AuthenticatedUser;
 import de.ait.pool.service.UsersService;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,27 +19,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @RestController
 public class UsersController implements UsersApi {
 
     private final UsersService usersService;
 
     // Конструктор, инъекция зависимости
-    public UsersController(UsersService usersService) {
+   /* public UsersController(UsersService usersService) {
         this.usersService = usersService;
-    }
-
+    }*/
 
     @Override
     public UserDto register(NewUserDto newUser) {
         return usersService.register(newUser);
     }
 
-//    @Override
-//    public UserDto getConfirmation(String confirmCode) {
-//        return usersService.confirm(confirmCode);
-//    }
+    @Override
+    public UserDto getConfirmation(String confirmCode) {
+        return usersService.confirm(confirmCode);
+    }
 
     @Override
     public UserDto getProfile(AuthenticatedUser user) {
