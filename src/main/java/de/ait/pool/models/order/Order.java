@@ -1,5 +1,7 @@
 package de.ait.pool.models.order;
 
+import de.ait.pool.models.Product;
+import de.ait.pool.models.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +23,19 @@ public class Order {
     @Column (nullable = false)
     private Long id;
 
-    @Column (nullable = false)
-    private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
+
+    //@OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderProduct> products;
 
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal summa;
@@ -31,12 +44,13 @@ public class Order {
     private int itemsCount;
 
     @Column (nullable = false)
-   // @Temporal(TemporalType.TIMESTAMP) // Явное указание типа даты
     private Date date;
 
-    //@OneToMany(mappedBy = "order")
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //Установка cascade и fetch параметров в ассоциации @OneToMany, если у вас есть особые требования к каскадным операциям или режиму выборки
-    private List<OrderProduct> products;
+
+
+
+
+
+
 
 }

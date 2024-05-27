@@ -1,10 +1,12 @@
 package de.ait.pool.models;
 
 import de.ait.pool.models.cart.Cart;
+import de.ait.pool.models.order.Order;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -62,17 +64,13 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
-
+    // Один пользователь может иметь множество заказов
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Order> orders = new HashSet<>();
 
     //TODO заказы Orders
     // Многие пользователи могут иметь множество продуктов
-   /* @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products;*/
+
 
 
 

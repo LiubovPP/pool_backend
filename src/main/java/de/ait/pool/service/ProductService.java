@@ -37,7 +37,6 @@ public class ProductService {
     }
 
     public ProductDto createProduct(NewProductDto newProductDto) {
-
         // Basic validation (can be improved)
         if (newProductDto.getTitle() == null || newProductDto.getTitle().isEmpty()) {
             throw new RestException(HttpStatus.BAD_REQUEST, "Title cannot be empty");
@@ -58,7 +57,6 @@ public class ProductService {
     }
 
     public ProductDto updateProduct(Long id, NewProductDto newProductDto) {
-
         // Basic validation (can be improved)
         if (newProductDto.getTitle() == null || newProductDto.getTitle().isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
@@ -69,8 +67,7 @@ public class ProductService {
 
         // Find product by id
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RestException(HttpStatus.BAD_REQUEST,
-                        "Product with id<" + id + "> is not found"));
+                .orElseThrow(() -> new RestException(HttpStatus.BAD_REQUEST, "Product with id<" + id + "> is not found"));
 
         // Update product fields
         product.setTitle(newProductDto.getTitle());
@@ -81,27 +78,23 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         return ProductDto.from(savedProduct);
     }
+
     public ProductDto deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new RestException(HttpStatus.BAD_REQUEST,
-                    "Product with id<" + id + "> is not found");
+            throw new RestException(HttpStatus.BAD_REQUEST, "Product with id<" + id + "> is not found");
         }
         Product productToDelete = productRepository.findById(id)
-                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,
-                        "Product with id<" + id + "> not found"));
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Product with id<" + id + "> not found"));
         ProductDto deletedProductDto = ProductDto.from(productToDelete);
 
         productRepository.deleteById(id);
 
         return deletedProductDto;
     }
-    /*public ProductDto deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new RestException(HttpStatus.BAD_REQUEST,
-                    "Product with id<" + id + "> is not found");
-        }
-        Optional<Product> productToDelete = productRepository.findById(id);
-        productRepository.deleteById(id);
-        return ProductDto.from(productToDelete);
-    }*/
+
+    public BigDecimal getProductPriceById(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Product with id<" + productId + "> is not found"));
+        return product.getPrice();
+    }
 }
