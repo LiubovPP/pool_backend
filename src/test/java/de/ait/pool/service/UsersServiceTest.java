@@ -5,6 +5,7 @@ import de.ait.pool.dto.userDto.UpdateUserDto;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.exceptions.RestException;
 import de.ait.pool.models.User;
+import de.ait.pool.repository.ConfirmationCodesRepository;
 import de.ait.pool.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,6 +33,9 @@ class UsersServiceTest {
     @InjectMocks
     private UsersService usersService;
 
+//    @Mock
+//    private ConfirmationCodesRepository confirmationCodesRepository;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -50,6 +54,9 @@ class UsersServiceTest {
 
         when(userRepository.existsByEmail(newUserDto.getEmail())).thenReturn(false);
         when(passwordEncoder.encode(newUserDto.getPassword())).thenReturn("encodedPassword");
+
+       // TODO надо прописать
+        // when(confirmationCodesRepository)
 
         // Act
         UserDto registeredUser = usersService.register(newUserDto);

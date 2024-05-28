@@ -19,6 +19,18 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
+    public User(Long userId, String testName, String testLastName, String testMail, String testPassword, String testPhoneNumber, Role testRole, State TestState, Cart testCart) {
+        this.id = userId;
+        this.firstName = testName;
+        this.lastName = testLastName;
+        this.email = testMail;
+        this.hashPassword = testPassword;
+        this.phoneNumber = testPhoneNumber;
+        this.role = testRole;
+        this.state = TestState;
+        this.cart = testCart;
+    }
+
     public enum Role {
         ADMIN, USER
     }
