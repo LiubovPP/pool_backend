@@ -15,8 +15,10 @@ import de.ait.pool.service.CartProductService;
 import de.ait.pool.service.CartService;
 import de.ait.pool.service.OrderService;
 import de.ait.pool.service.UsersService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,25 +43,18 @@ public class CartProductController implements CartProductApi {
     }
 
     @Override
-    public CartProductDto getCartProductById(Long cartId, Long cartProductId) {
-        return cartService.getCartProductById(cartId, cartProductId);
+    public CartProductDto getCartProductById(@Parameter(hidden = true) AuthenticatedUser user, Long productId) {
+        return cartService.getCartProductById(user,productId);
     }
 
     @Override
-    public CartProductDto updateCartProduct(@PathVariable Long cartId,
-                                            @PathVariable Long cartProductId,
-                                            @RequestBody UpdateCartProductDto updateCartProductDto) {
-        return cartProductService.updateCartProduct(cartId, cartProductId, updateCartProductDto);
+    public CartProductDto deleteCartProduct(AuthenticatedUser user, Long productId) {
+        return cartProductService.deleteCartProduct(user, productId);
     }
 
     @Override
-    public CartProductDto deleteCartProduct(Long cartId, Long cartProductId) {
-        return cartProductService.deleteCartProduct(cartId, cartProductId);
-    }
-
-    @Override
-    public CartProductDto addProductToCart(@PathVariable Long cartId, @RequestBody AddProductToCartDto addProductToCartDto) {
-        return cartService.addProductToCart(cartId, addProductToCartDto);
+    public CartProductDto addProductToCart(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user, @RequestBody AddProductToCartDto addProductToCartDto) {
+        return cartService.addProductToCart(user, addProductToCartDto);
     }
 
 

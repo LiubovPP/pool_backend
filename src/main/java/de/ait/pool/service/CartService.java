@@ -1,6 +1,5 @@
 package de.ait.pool.service;
 
-import de.ait.pool.dto.cartDto.CartDto;
 import de.ait.pool.dto.productDto.AddProductToCartDto;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.dto.сartProductDto.CartProductDto;
@@ -34,32 +33,42 @@ public class CartService {
 
     private final UserRepository userRepository;
 
-    public CartProductDto getCartProductById(Long cartId, Long cartProductId) {
-        CartProduct cartProduct = cartProductRepository.findById(cartProductId)
-                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "CartProduct not found"));
+    public CartProductDto getCartProductById(AuthenticatedUser authenticatedUser, Long productId) {
+        Long currentUserId = authenticatedUser.getId();
+        User currentUser = userRepository.findById(currentUserId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "User not found"));
 
-        if (!cartProduct.getCart().getId().equals(cartId)) {
+        Cart cart = cartRepository.findById(currentUser.getCart().getId())
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
+
+        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cart.getId(), productId);
+
+        if (!cartProduct.getCart().getId().equals(cart.getId())) {
             throw new RestException(HttpStatus.NOT_FOUND, "CartProduct does not belong to the specified cart");
-        }// ?? HttpStatus какой статус
+        }
 
         Product product = cartProduct.getProduct();
         return CartProductDto.builder()
-                .id(product.getId())
-                .cartId(cartId)
+                .id(cart.getId())
+                .cartId(cart.getId())
                 .productId(product.getId())
                 .quantity(cartProduct.getQuantity())
                 .productName(product.getTitle())
                 .build();
     }
 
-    public CartProductDto addProductToCart(Long cartId, AddProductToCartDto addProductToCartDto) {
-        Cart cart = cartRepository.findById(cartId)
+    public CartProductDto addProductToCart(AuthenticatedUser authenticatedUser, AddProductToCartDto addProductToCartDto) {
+        Long currentUserId = authenticatedUser.getId();
+        User currentUser = userRepository.findById(currentUserId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "User not found"));
+
+        Cart cart = cartRepository.findById(currentUser.getCart().getId())
                 .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
 
         Product product = productRepository.findById(addProductToCartDto.getProductId())
                 .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Product not found"));
 
-        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cartId, addProductToCartDto.getProductId());
+        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cart.getId(), addProductToCartDto.getProductId());
         if (cartProduct == null) {
             cartProduct = CartProduct.builder()
                     .cart(cart)
@@ -78,7 +87,7 @@ public class CartService {
     public Set<CartProductDto> getCartProducts(UserDto user) {
         Long currentUserId = user.getId();
         User currentUser = userRepository.findById(currentUserId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND,"User not found"));
 
         Set<CartProduct> cartProducts = cartProductRepository.findByCart(currentUser.getCart());
         return cartProducts.stream()
