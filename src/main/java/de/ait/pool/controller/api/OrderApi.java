@@ -2,6 +2,7 @@ package de.ait.pool.controller.api;
 
 import de.ait.pool.dto.orderDto.NewOrderDto;
 import de.ait.pool.dto.orderDto.OrderDto;
+import de.ait.pool.models.order.Order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
@@ -23,18 +24,18 @@ public interface OrderApi {
 
     @Operation(summary = "Получить все заказы", description = "Доступно всем. По умолчанию роль - USER")
     @GetMapping
-    List<OrderDto> getOrders();
+    List<Order> getOrders();
 
-    @Operation(summary = "Создание нового заказа", description = "Доступно администратору. По умолчанию роль - ADMIN")
+    @Operation(summary = "Создание нового заказа", description = "Доступно всем. По умолчанию роль - USER")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     OrderDto createOrder(@RequestBody @Valid NewOrderDto newOrderDto);
 
-    @Operation(summary = "Обновить заказ", description = "Доступно администратору. По умолчанию роль - ADMIN")
+    @Operation(summary = "Обновить заказ", description = "Доступно администратору. По умолчанию роль - USER")
     @PutMapping("/{id}")
     OrderDto updateOrder(@PathVariable Long id, @RequestBody @Valid NewOrderDto newOrderDto);
 
-    @Operation(summary = "Удалить заказ", description = "Доступно администратору. По умолчанию роль - ADMIN")
+    @Operation(summary = "Удалить заказ", description = "Доступно всем. По умолчанию роль - USER")
     @DeleteMapping("/{id}")
     OrderDto deleteOrder(@PathVariable Long id);
 }

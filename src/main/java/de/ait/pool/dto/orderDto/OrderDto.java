@@ -23,10 +23,14 @@ public class OrderDto {
     @Schema(description = "Идентификатор пользователя, сделавшего заказ")
     private Long userId;
 
-    @Schema(description = "Сумма заказа")
-    private BigDecimal summa;
+    @Schema(description = "Идентификатор товара")
+    private Long productId;
 
-    @Schema(description = "Количество товаров в заказе")
+
+    @Schema(description = "катекатегория ", example = "услуга/химия")
+    private String category;
+
+    @Schema(description = "Количество товаров в заказе",example = "1")
     private int itemsCount;
 
     @Schema(description = "Дата заказа")
@@ -35,14 +39,19 @@ public class OrderDto {
     @Schema(description = "Список товаров в заказе")
     private List<OrderProductDto> products;
 
+    @Schema(description = "Сумма заказа")
+    private BigDecimal summa;
 
     public static OrderDto from(Order order) {
         return OrderDto.builder()
                 .id(order.getId())
-                .userId(order.getUserId())
-                .summa(order.getSumma())
+                .userId(order.getUser().getId())
+                .productId(order.getProduct().getId())
+                .category(order.getProduct().getCategory()) // assuming Product has getCategory() method
                 .itemsCount(order.getItemsCount())
                 .date(order.getDate())
+                .summa(order.getSumma())
+                .products(OrderProductDto.from(order.getProducts()))
                 .build();
     }
 

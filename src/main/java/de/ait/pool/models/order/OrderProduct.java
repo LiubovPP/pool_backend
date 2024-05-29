@@ -1,8 +1,10 @@
 package de.ait.pool.models.order;
 
+import de.ait.pool.models.Product;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -15,18 +17,24 @@ import javax.persistence.*;
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (nullable = false)
+    @Column (name = "id", nullable = false)
     private Long id;
 
-    @Column (nullable = false)
-    private Long productId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @Column (nullable = false)
     private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @Column(precision = 10, scale = 2, nullable = false)
+    private BigDecimal price;
+
+
 
 
 }

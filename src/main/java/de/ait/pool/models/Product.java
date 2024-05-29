@@ -3,6 +3,7 @@ package de.ait.pool.models;
 
 import de.ait.pool.models.cart.Cart;
 import de.ait.pool.models.cart.CartProduct;
+import de.ait.pool.models.order.OrderProduct;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,10 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
      private Set<CartProduct> cartProducts= new HashSet<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OrderProduct> orderProducts = new HashSet<>();
+
 
     public Product(Long productId, String testTitle, BigDecimal testPrice, String testCategory) {
         this.id = productId;
