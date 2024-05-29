@@ -3,9 +3,12 @@ package de.ait.pool.controller.api;
 import de.ait.pool.dto.сartProductDto.CartProductDto;
 import de.ait.pool.dto.cartDto.UpdateCartProductDto;
 import de.ait.pool.dto.productDto.AddProductToCartDto;
+import de.ait.pool.security.details.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -13,7 +16,7 @@ import java.util.Set;
 @Tags(
         @Tag(name = "CartProduct-продукт в корзине")
 )
-@RequestMapping("/api/cart/{cartId}")
+@RequestMapping("/api/cart/cart-products")
 public interface CartProductApi {
     //GET /api/cart/{userId} - Получение информации о корзине по идентификатору пользователя.
     //POST /api/cart - Создание новой корзины для пользователя.
@@ -27,24 +30,20 @@ public interface CartProductApi {
 
     @Operation(summary = "Получение списка всех продуктов в корзине", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     @GetMapping
-    Set<CartProductDto> getCartProducts(@PathVariable Long cartId);
+    Set<CartProductDto> getCartProducts(@Parameter (hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
+
 
     @Operation(summary = "Получение информации о продукте в корзине по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
-    @GetMapping("/cart-products/{cartProductId}")
-    CartProductDto getCartProductById(@PathVariable Long cartId, @PathVariable Long cartProductId);
+    @GetMapping("{productId}")
+    CartProductDto getCartProductById(@AuthenticationPrincipal AuthenticatedUser user,@Parameter Long productId);
 
-    @PutMapping("/cart-products/{cartProductId}")
-    @Operation(summary = "Обновление информации о продукте - количества - в корзине", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
-    public CartProductDto updateCartProduct(@PathVariable Long cartId,
-                                            @PathVariable Long cartProductId,
-                                            @RequestBody UpdateCartProductDto updateCartProductDto);
 
-    @DeleteMapping("/cart-products/{cartProductId}")
+    @DeleteMapping("/cart-products/{productId}")
     @Operation(summary = "Удаление продукта из корзины по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
-    public CartProductDto deleteCartProduct(@PathVariable Long cartId,
-                                            @PathVariable Long cartProductId);
+    public CartProductDto deleteCartProduct(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user,
+                                            @Parameter Long productId);
 
-    @PostMapping("/products")
+    @PostMapping("product")
     @Operation(summary = "Добавление продукта в корзину", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
-    public CartProductDto addProductToCart(@PathVariable Long cartId, @RequestBody AddProductToCartDto addProductToCartDto);
+    public CartProductDto addProductToCart(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user, @RequestBody AddProductToCartDto addProductToCartDto);
 }
