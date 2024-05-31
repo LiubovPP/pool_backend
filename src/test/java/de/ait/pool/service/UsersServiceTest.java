@@ -4,6 +4,7 @@ import de.ait.pool.dto.userDto.NewUserDto;
 import de.ait.pool.dto.userDto.UpdateUserDto;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.exceptions.RestException;
+import de.ait.pool.models.ConfirmationCode;
 import de.ait.pool.models.User;
 import de.ait.pool.repository.ConfirmationCodesRepository;
 import de.ait.pool.repository.UserRepository;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -33,8 +35,8 @@ class UsersServiceTest {
     @InjectMocks
     private UsersService usersService;
 
-//    @Mock
-//    private ConfirmationCodesRepository confirmationCodesRepository;
+    @Mock
+    private ConfirmationCodesRepository confirmationCodesRepository;
 
     @BeforeEach
     void setUp() {
@@ -56,8 +58,7 @@ class UsersServiceTest {
         when(passwordEncoder.encode(newUserDto.getPassword())).thenReturn("encodedPassword");
 
        // TODO надо прописать
-        // when(confirmationCodesRepository)
-
+        // when
         // Act
         UserDto registeredUser = usersService.register(newUserDto);
 
