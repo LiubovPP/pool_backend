@@ -24,15 +24,15 @@ public interface CartProductApi {
     Set<CartProductDto> getCartProducts(@Parameter (hidden = true) @AuthenticationPrincipal AuthenticatedUser user);
 
     @Operation(summary = "Получение информации о продукте в корзине по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
-    @GetMapping("{productId}")
-    CartProductDto getCartProductById(@AuthenticationPrincipal AuthenticatedUser user,@Parameter Long productId);
+    @GetMapping("/{productId}")
+    CartProductDto getCartProductById(@AuthenticationPrincipal AuthenticatedUser user,@PathVariable Long productId);
 
-    @DeleteMapping("{productId}")
+    @DeleteMapping("/{productId}")
     @Operation(summary = "Удаление продукта из корзины по идентификатору", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     public CartProductDto deleteCartProduct(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user,
-                                            @Parameter Long productId);
+                                            @PathVariable Long productId);
 
-    @PostMapping("product")
+    @PostMapping("/product")
     @Operation(summary = "Добавление продукта в корзину", description = "Доступно авторизованному пользователю. По умолчанию роль - USER")
     public CartProductDto addProductToCart(@Parameter(hidden = true) @AuthenticationPrincipal AuthenticatedUser user, @RequestBody AddProductToCartDto addProductToCartDto);
 }

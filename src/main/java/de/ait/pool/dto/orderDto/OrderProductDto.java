@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -42,9 +43,9 @@ public class OrderProductDto {
                 .build();
     }
 
-    public static List<OrderProductDto> from(List<OrderProduct> orderProducts) {
+    public static Set<OrderProductDto> from(Set<OrderProduct> orderProducts) {
         return orderProducts.stream()
                 .map(OrderProductDto::from)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 }

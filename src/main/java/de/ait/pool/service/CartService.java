@@ -49,7 +49,6 @@ public class CartService {
 
         Product product = cartProduct.getProduct();
         return CartProductDto.builder()
-                .id(cart.getId())
                 .cartId(cart.getId())
                 .productId(product.getId())
                 .quantity(cartProduct.getQuantity())
@@ -93,5 +92,20 @@ public class CartService {
         return cartProducts.stream()
                 .map(CartProductDto::fromCartProduct)
                 .collect(Collectors.toSet());
+    }
+
+    public CartProductDto deleteCartProduct(AuthenticatedUser authenticatedUser, Long productId) {
+        Long currentUserId = authenticatedUser.getId();
+        User currentUser = userRepository.findById(currentUserId)
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "User not found"));
+
+        Cart cart = cartRepository.findById(currentUser.getCart().getId())
+                .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "Cart not found"));
+
+        CartProduct cartProduct = cartProductRepository.findByCartIdAndProductId(cart.getId(), productId);
+
+        cartProductRepository.delete(cartProduct);
+
+        return CartProductDto.fromCartProduct(cartProduct);
     }
 }

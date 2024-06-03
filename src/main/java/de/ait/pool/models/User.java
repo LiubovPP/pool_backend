@@ -77,7 +77,7 @@ public class User {
     private Cart cart;
 
     // Один пользователь может иметь множество заказов
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Order> orders = new HashSet<>();
 
     //TODO заказы Orders

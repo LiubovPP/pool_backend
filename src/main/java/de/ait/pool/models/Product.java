@@ -23,7 +23,7 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Column(length = 20)
@@ -36,7 +36,7 @@ public class Product {
     private String category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-     private Set<CartProduct> cartProducts= new HashSet<>();
+    private Set<CartProduct> cartProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderProduct> orderProducts = new HashSet<>();
@@ -45,7 +45,7 @@ public class Product {
     public Product(Long productId, String testTitle, BigDecimal testPrice, String testCategory) {
         this.id = productId;
         this.title = testTitle;
-        this.price= testPrice;
+        this.price = testPrice;
         this.category = testCategory;
     }
 }
