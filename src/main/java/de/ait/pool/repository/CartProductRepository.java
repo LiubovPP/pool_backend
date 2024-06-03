@@ -17,4 +17,5 @@ public interface CartProductRepository extends JpaRepository<CartProduct, Long> 
 
     Set<CartProduct> findByCart(Cart cart);
 
+    void deleteAllByProductIdIn(Set<Long> collect);
 }

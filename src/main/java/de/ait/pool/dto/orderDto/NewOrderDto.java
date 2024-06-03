@@ -25,7 +25,6 @@ public class NewOrderDto {
     @NotNull
     private int itemsCount;
 
-
     @NotNull
     private Date date;
 }

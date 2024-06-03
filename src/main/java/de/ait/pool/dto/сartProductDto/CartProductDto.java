@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Schema(name = "CartProduct", description = "Данные продукта в корзине пользователя")
 public class CartProductDto {
-    @Schema(description = "идентификатор продукта в корзине", example = "1")
-    private Long id;
 
     @Schema(description = "идентификатор корзины", example = "1")
     private Long cartId;
@@ -30,7 +28,6 @@ public class CartProductDto {
 
     public static CartProductDto fromCartProduct(CartProduct cartProduct) {
         return CartProductDto.builder()
-                .id(cartProduct.getId())
                 .cartId(cartProduct.getCart().getId())
                 .productId(cartProduct.getProduct().getId())
                 .productName(cartProduct.getProduct().getTitle())

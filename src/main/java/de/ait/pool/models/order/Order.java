@@ -6,8 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,34 +23,18 @@ public class Order {
     @Column (nullable = false)
     private Long id;
 
+    @Column (nullable = false)
+    private LocalDateTime date;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
+    @Column(precision = 10, scale = 2, nullable = false)
+    private BigDecimal summa;
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
-    //@OneToMany(mappedBy = "order")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderProduct> products;
-
-    @Column(precision = 10, scale = 2, nullable = false)
-    private BigDecimal summa;
-
-    @Column (nullable = false)
-    private int itemsCount;
-
-    @Column (nullable = false)
-    private Date date;
-
-
-
-
-
-
+    private Set<OrderProduct> orderProducts;
 
 
 }

@@ -21,7 +21,7 @@ public class OrderProduct {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,8 +33,5 @@ public class OrderProduct {
 
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal price;
-
-
-
 
 }
