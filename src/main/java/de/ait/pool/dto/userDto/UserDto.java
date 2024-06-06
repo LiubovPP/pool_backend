@@ -1,6 +1,7 @@
 package de.ait.pool.dto.userDto;
 
 import de.ait.pool.models.User;
+import de.ait.pool.models.cart.Cart;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class UserDto {
 
     @Schema(description = "Номер телефона пользователя", example = "+7 952 889 01 88")
     private String phoneNumber;
+
 
     public static UserDto from(User user) {
         return UserDto.builder()

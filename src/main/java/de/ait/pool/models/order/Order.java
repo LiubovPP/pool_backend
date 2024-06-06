@@ -1,11 +1,13 @@
 package de.ait.pool.models.order;
 
+import de.ait.pool.models.Product;
+import de.ait.pool.models.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,21 +24,17 @@ public class Order {
     private Long id;
 
     @Column (nullable = false)
-    private Long userId;
+    private LocalDateTime date;
 
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal summa;
 
-    @Column (nullable = false)
-    private int itemsCount;
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
 
-    @Column (nullable = false)
-   // @Temporal(TemporalType.TIMESTAMP) // Явное указание типа даты
-    private Date date;
-
-    //@OneToMany(mappedBy = "order")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //Установка cascade и fetch параметров в ассоциации @OneToMany, если у вас есть особые требования к каскадным операциям или режиму выборки
-    private List<OrderProduct> products;
+    private Set<OrderProduct> orderProducts;
+
 
 }

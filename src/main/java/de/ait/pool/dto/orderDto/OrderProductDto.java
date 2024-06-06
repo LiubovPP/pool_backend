@@ -5,7 +5,9 @@ import de.ait.pool.models.order.OrderProduct;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -22,33 +24,28 @@ public class OrderProductDto {
     @Schema(description = "Идентификатор заказа")
     private Long orderId;
 
-    @Schema(description = "Идентификатор продукта")
+    @Schema(description = "Идентификатор товара")
     private Long productId;
 
-    @Schema(description = "Количество товара")
+    @Schema(description = "Количество")
     private int quantity;
 
-
+    @Schema(description = "Цена")
+    private BigDecimal price;
 
     public static OrderProductDto from(OrderProduct orderProduct) {
         return OrderProductDto.builder()
                 .id(orderProduct.getId())
-                .productId(orderProduct.getProductId())
+                .orderId(orderProduct.getOrder().getId())
+                .productId(orderProduct.getProduct().getId())
                 .quantity(orderProduct.getQuantity())
-                .orderId(orderProduct.getOrder() != null ? orderProduct.getOrder().getId() : null)
+                .price(orderProduct.getPrice())
                 .build();
     }
 
-    public static List<OrderProductDto> from(List<OrderProduct> orderProducts) {
+    public static Set<OrderProductDto> from(Set<OrderProduct> orderProducts) {
         return orderProducts.stream()
                 .map(OrderProductDto::from)
-                .collect(Collectors.toList());
-    }
-    public OrderProduct toEntity(Order order) {
-        return OrderProduct.builder()
-                .productId(this.productId)
-                .quantity(this.quantity)
-                .order(order)
-                .build();
+                .collect(Collectors.toSet());
     }
 }

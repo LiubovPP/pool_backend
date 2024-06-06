@@ -5,6 +5,7 @@ import de.ait.pool.dto.productDto.NewProductDto;
 import de.ait.pool.dto.productDto.ProductDto;
 import de.ait.pool.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,12 @@ import java.util.Optional;
 public class ProductController implements ProductApi {
     private final ProductService productService;
 
-    @Override
+
+
 
     public Optional<ProductDto> getById(@PathVariable Long id) {
         return productService.findById(id).map(ProductDto::from);
-    }
+   }
 
     @Override
 

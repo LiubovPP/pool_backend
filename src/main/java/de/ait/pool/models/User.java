@@ -1,11 +1,14 @@
 package de.ait.pool.models;
 
 import de.ait.pool.models.cart.Cart;
+import de.ait.pool.models.order.Order;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -17,6 +20,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
+
+    public User(Long userId, String testName, String testLastName, String testMail, String testPassword, String testPhoneNumber, Role testRole, State TestState, Cart testCart) {
+        this.id = userId;
+        this.firstName = testName;
+        this.lastName = testLastName;
+        this.email = testMail;
+        this.hashPassword = testPassword;
+        this.phoneNumber = testPhoneNumber;
+        this.role = testRole;
+        this.state = TestState;
+        this.cart = testCart;
+    }
 
     public enum Role {
         ADMIN, USER
@@ -61,23 +76,19 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
-
+    // Один пользователь может иметь множество заказов
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Order> orders = new HashSet<>();
 
     //TODO заказы Orders
     // Многие пользователи могут иметь множество продуктов
-   /* @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products;*/
 
 
-/*
+
+
     @OneToMany(mappedBy = "user")
     private Set<ConfirmationCode> codes;
-*/
+
 
     @Override
     public final boolean equals(Object o) {

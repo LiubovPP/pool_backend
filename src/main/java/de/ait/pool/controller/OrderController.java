@@ -3,46 +3,51 @@ package de.ait.pool.controller;
 import de.ait.pool.controller.api.OrderApi;
 import de.ait.pool.dto.orderDto.NewOrderDto;
 import de.ait.pool.dto.orderDto.OrderDto;
+import de.ait.pool.dto.сartProductDto.CartProductDto;
+import de.ait.pool.models.order.Order;
+import de.ait.pool.security.details.AuthenticatedUser;
 import de.ait.pool.service.OrderService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
+@RequestMapping("/api/orders")
 @RequiredArgsConstructor
 public class OrderController implements OrderApi {
+
     private final OrderService orderService;
 
     @Override
-    public Optional<OrderDto> getById(@PathVariable Long id) {
-        return orderService.findById(id).map(OrderDto::from);
+    @PreAuthorize("hasRole('ADMIN')")
+    public Optional<OrderDto> getById(Long id) {
+        return orderService.getById(id).map(OrderDto::from);
     }
 
     @Override
-    public List<OrderDto> getOrders() {
-        return OrderDto.from(orderService.findAll());
+    public List<Order> getOrders() {
+        return orderService.getOrders();
     }
 
     @Override
-    @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto createOrder(@RequestBody @Valid NewOrderDto newOrderDto) {
-        return orderService.createOrder(newOrderDto);
+    public OrderDto createOrder(@Parameter(hidden = true) AuthenticatedUser user, Set<CartProductDto> cartProducts) {
+        return orderService.createOrder(user,cartProducts);
     }
 
-    @Override
-    public OrderDto updateOrder(@PathVariable Long id, @RequestBody @Valid NewOrderDto newOrderDto) {
+
+    /*@Override
+    public OrderDto updateOrder(Long id, NewOrderDto newOrderDto) {
         return orderService.updateOrder(id, newOrderDto);
     }
 
     @Override
-    public OrderDto deleteOrder(@PathVariable Long id) {
+    public OrderDto deleteOrder(Long id) {
         return orderService.deleteOrder(id);
-    }
+    }*/
 }

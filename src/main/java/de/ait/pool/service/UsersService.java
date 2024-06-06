@@ -5,17 +5,15 @@ import de.ait.pool.dto.userDto.NewUserDto;
 import de.ait.pool.dto.userDto.UpdateUserDto;
 import de.ait.pool.dto.userDto.UserDto;
 import de.ait.pool.exceptions.RestException;
-//import de.ait.pool.mail.MailTemplatesUtil;
-//import de.ait.pool.mail.PoolProjectMailSender;
-//import de.ait.pool.models.ConfirmationCode;
+import de.ait.pool.mail.MailTemplatesUtil;
+import de.ait.pool.mail.PoolProjectMailSender;
+import de.ait.pool.models.ConfirmationCode;
 import de.ait.pool.models.User;
-//import de.ait.pool.repository.ConfirmationCodesRepository;
+import de.ait.pool.repository.ConfirmationCodesRepository;
 import de.ait.pool.models.cart.Cart;
-import de.ait.pool.repository.CartRepository;
 import de.ait.pool.repository.UserRepository;
-//import freemarker.template.Configuration;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,9 @@ import static de.ait.pool.dto.userDto.UserDto.from;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -35,34 +35,33 @@ public class UsersService {
 
     private final UserRepository usersRepository;
 
-    // private final ConfirmationCodesRepository confirmationCodesRepository;
+    private final ConfirmationCodesRepository confirmationCodesRepository;
 
     private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
 
-    //private final PoolProjectMailSender mailSender;
+    private final PoolProjectMailSender mailSender;
 
-    /* private final MailTemplatesUtil mailTemplatesUtil;
+    private final MailTemplatesUtil mailTemplatesUtil;
 
-     @Value("${base.url}")
-     private String baseUrl;
- */
-    //@Transactional
+    @Value("${base.url}")
+    private String baseUrl;
+
+    @Transactional
     public UserDto register(NewUserDto newUser) {
 
         checkIfExistsByEmail(newUser);
 
         User user = saveNewUser(newUser);
 
-        //String codeValue = UUID.randomUUID().toString();
+        String codeValue = UUID.randomUUID().toString();
 
-        //saveConfirmCode(user, codeValue);
+        saveConfirmCode(user, codeValue);
 
-        //String link = createLinkForConfirmation(codeValue);
+        String link = createLinkForConfirmation(codeValue);
 
-        //String html = mailTemplatesUtil.createConfirmationMail(user.getFirstName(), user.getLastName(), link);
+        String html = mailTemplatesUtil.createConfirmationMail(user.getFirstName(), user.getLastName(), link);
 
-        //mailSender.send(user.getEmail(), "Registration", html); // @Async
+        mailSender.send(user.getEmail(), "Registration", html); // @Async
 
         createCart(user);
 
@@ -74,27 +73,23 @@ public class UsersService {
         cart.setUser(user);
         user.setCart(cart);
     }
-//
-   /* private String createLinkForConfirmation(String codeValue) {
+
+    private String createLinkForConfirmation(String codeValue) {
         return baseUrl +
                "/api/users/confirm/"
               //  "/api/users/confirm"
                 + codeValue;
-    }*/
+    }
 
-    /*private void saveConfirmCode(User user, String codeValue) {
+    private void saveConfirmCode(User user, String codeValue) {
         ConfirmationCode code = ConfirmationCode.builder()
                 .code(codeValue)
                 .user(user)
                 .expiredDateTime(LocalDateTime.now().plusMinutes(1))
                 .build();
-        if (usersRepository.existsByEmail(newUser.getEmail())) {
-            throw new RestException(HttpStatus.CONFLICT,
-                    "Пользователь с email <" + newUser.getEmail() + "> уже существует");
-        }
 
         confirmationCodesRepository.save(code);
-    }*/
+    }
 
     private User saveNewUser(NewUserDto newUser) {
         User user = User.builder()
@@ -129,7 +124,7 @@ public class UsersService {
         return usersRepository.findById(id).orElse(null);
     }
 
-    /*@Transactional
+    @Transactional
     public UserDto confirm(String confirmCode) {
         ConfirmationCode code = confirmationCodesRepository
                 .findByCodeAndExpiredDateTimeAfter(confirmCode, LocalDateTime.now())
@@ -138,16 +133,14 @@ public class UsersService {
         User user = usersRepository
                 .findFirstByCodesContains(code)
                 .orElseThrow(() -> new RestException(HttpStatus.NOT_FOUND, "User by code not found"));
-    public void deleteUser(User user) {
-        usersRepository.delete(user);
-    }
 
         user.setState(User.State.CONFIRMED);
 
         usersRepository.save(user);
 
         return UserDto.from(user);
-    }*/
+    }
+
     //TODO
 
     public UserDto updateUser(User userToUpdate, UpdateUserDto updatedUser) {

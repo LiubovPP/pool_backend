@@ -2,13 +2,14 @@ package de.ait.pool.repository;
 
 import de.ait.pool.models.order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
+@Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findBySummaGreaterThan(BigDecimal summa);
     // Поиск всех заказов по userId
     List<Order> findByUserId(Long userId);
 
@@ -18,8 +19,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // Поиск заказов по диапазону дат
     List<Order> findByDateBetween(Date startDate, Date endDate);
 
-    // Поиск заказов с суммой больше заданной
-    List<Order> findBySummaGreaterThan(BigDecimal summa);
+
+
 
    /* // Использование JPQL для поиска заказов с определенным количеством товаров
     @Query("SELECT o FROM Order o WHERE o.itemsCount = :itemsCount")

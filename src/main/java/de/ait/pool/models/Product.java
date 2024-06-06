@@ -3,6 +3,7 @@ package de.ait.pool.models;
 
 import de.ait.pool.models.cart.Cart;
 import de.ait.pool.models.cart.CartProduct;
+import de.ait.pool.models.order.OrderProduct;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Column(length = 20)
@@ -35,6 +36,16 @@ public class Product {
     private String category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-     private Set<CartProduct> cartProducts= new HashSet<>();
+    private Set<CartProduct> cartProducts = new HashSet<>();
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OrderProduct> orderProducts = new HashSet<>();
+
+
+    public Product(Long productId, String testTitle, BigDecimal testPrice, String testCategory) {
+        this.id = productId;
+        this.title = testTitle;
+        this.price = testPrice;
+        this.category = testCategory;
+    }
 }
